@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import Router from './Router'
-import Nav from './Nav';
+import TopNav from './Nav';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Nav />
+    <TopNav />
     <Router />
   </React.StrictMode>,
   document.getElementById('root')
