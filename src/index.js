@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import UserList from './components/UserList'
+import Router from './Router'
+import Nav from './Nav';
 
 ReactDOM.render(
   <React.StrictMode>
-    <UserList />
+    <Nav />
+    <Router />
   </React.StrictMode>,
   document.getElementById('root')
 );
