@@ -1,7 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import { Link} from 'react-router-dom';
 
 export default class PersonList extends React.Component {
+
+
     state = {
         user: []
     }
@@ -19,6 +22,7 @@ export default class PersonList extends React.Component {
     render() {
         return (
             <div className="row mx-0 mt-4 justify-content-center">
+                <h2>List of Users</h2>
                 { this.state.user.map(user =>
                     <div className="col-lg-4 col-md-6 mb-1 p-2 text-center" key={user.id}>
                         <div className="border border-primary p-3 h-100">
@@ -35,6 +39,24 @@ export default class PersonList extends React.Component {
                                     <br/>Lat : {user.address.geo.lat} Long : {user.address.geo.lng}
                                 </small>
                             </p>
+                            <div className="row mx-0 mt-4">
+                                <div className="col-6">
+                                    <Link className="btn btn-block btn-outline-success btn-sm" to={{
+                                        pathname: `/posts/${user.id}`,
+                                        state: { member: user.id }
+                                    }}>
+                                    <i className="fa fa-pencil fa-fw"></i>&nbsp;Posts
+                                    </Link>
+                                </div>
+                                <div className="col-6">
+                                    <Link className="btn btn-block btn-outline-danger btn-sm" to={{
+                                        pathname: `/albums/${user.id}`,
+                                        state: { member: user.id }
+                                    }}>
+                                    <i className="fa fa-pencil fa-fw"></i>&nbsp;Albums
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}
