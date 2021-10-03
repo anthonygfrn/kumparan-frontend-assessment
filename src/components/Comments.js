@@ -13,8 +13,16 @@ function Comments() {
         axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${id}`)
         .then(res => {
             setComments(res.data);
-      }, []);
-    } )
+      });
+        }, [id] )
+
+    function deleteComments(commentId) {;
+        console.log(commentId);
+        setComments(comments.filter(function(value, index, posts){
+            return value.id !== commentId;
+        }
+        ))};
+    
 
     return (
         <div className="row mx-0">
@@ -31,6 +39,9 @@ function Comments() {
                         </div>
                         <div className="small font-italic">
                             "{comments.body}""
+                        </div>
+                        <div className="mt-2">
+                        <button className="btn btn-outline-danger btn-sm" onClick={() => deleteComments(comments.id)}><i className="fa fa-caret-left fa-fw"></i> Delete Comment </button>
                         </div>
                     </div>
                 )}

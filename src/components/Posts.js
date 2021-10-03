@@ -14,13 +14,22 @@ function Posts() {
         axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
         .then(res => {
             setPosts(res.data);
-      }, []);
-    } )
+        });
+        }, [id] )
 
     function addPost(e) {
         e.preventDefault();
-        console.log('oi');
+        console.log('add');
     };
+
+    function deletePost(postId) {;
+        console.log(postId);
+            setPosts(posts.filter(function(value, index, posts){
+                return value.id !== postId;
+            }
+        ))};
+    
+
 
     return (
         <div className="container">
@@ -46,6 +55,9 @@ function Posts() {
                             pathname: `/comments/${post.id}`,
                         }}> See Comment(s)
                     </Link>   
+                    <div className="mt-2">
+                        <button className="btn btn-outline-danger btn-sm" onClick={() => deletePost(post.id)}><i className="fa fa-caret-left fa-fw"></i> Delete Post </button>
+                    </div>
                       
                 </div>
             )}
