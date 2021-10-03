@@ -103,131 +103,142 @@ function Comments() {
     }
 
     return (
-        <div className="row mx-0">
-            <div className="h2">Comments :</div>
-            <div className="mt-2">
-                <Link to="/" className="btn btn-outline-secondary">
-                    <i className="fa fa-caret-left fa-fw"></i>Home
-                </Link>
-            </div>
-            <div className="mt-2">
-                <button
-                    className="btn btn-outline-secondary"
-                    onClick={handleForm}
-                >
-                    <i className="fa fa-caret-left fa-fw"></i> Add new comments{" "}
-                </button>
-            </div>
-            {isFormVisible && (
-                <div>
-                    <Form
-                        className="border border-primary p-3 h-100"
-                        onSubmit={addComments}
+        <div className="container">
+            <div className="row mx-0">
+                <div className="h3 m-2 mt-4">Comments :</div>
+                <div className="mt-2">
+                    <button
+                        className="btn btn-outline-dark m-2"
+                        onClick={handleForm}
                     >
-                        <Form.Group className="mb-3">
-                            <Form.Label>Name: </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter Name"
-                                onChange={onNameInput}
-                                value={name}
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Email: </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter email"
-                                onChange={onEmailInput}
-                                value={email}
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Body: </Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter body"
-                                onChange={onBodyInput}
-                                value={body}
-                            />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
+                        <i className="fa fa-caret-left fa-fw"></i> Add new
+                        comments{" "}
+                    </button>
                 </div>
-            )}
-            <div>
-                {comments.map((comments) => (
-                    <div
-                        className="border-bottom mb-1 p-2 w-100"
-                        key={comments.id}
-                    >
-                        <div className="h6">{comments.name}</div>
-                        <div className="h6">{comments.email}</div>
-                        <div className="small font-italic">
-                            "{comments.body}""
-                        </div>
-                        <Button
-                            variant="primary"
-                            onClick={() => handleShow(comments)}
-                        >
-                            Edit Button
-                        </Button>
-                        {isEditFormVisible && comments.id === selectedComment && (
-                            <div>
-                                <Form
-                                    className="border border-primary p-3 h-100"
-                                    onSubmit={(event) =>
-                                        editComment(event, comments.id)
-                                    }
-                                >
-                                    {" "}
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Name: </Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Enter title"
-                                            onChange={onNameInput}
-                                            value={name}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Email: </Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Enter title"
-                                            onChange={onEmailInput}
-                                            value={email}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Form.Label>Body: </Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Enter body"
-                                            onChange={onBodyInput}
-                                            value={body}
-                                        />
-                                    </Form.Group>
-                                    <Button variant="primary" type="submit">
-                                        Submit
-                                    </Button>
-                                </Form>
-                            </div>
-                        )}
-
-                        <div className="mt-2">
-                            <button
-                                className="btn btn-outline-danger btn-sm"
-                                onClick={() => deleteComments(comments.id)}
+                <div className="mt-2">
+                    {isFormVisible && (
+                        <div>
+                            <Form
+                                className="border border-primary p-3 h-100"
+                                onSubmit={addComments}
                             >
-                                <i className="fa fa-caret-left fa-fw"></i>{" "}
-                                Delete Comment{" "}
-                            </button>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Name: </Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter Name"
+                                        onChange={onNameInput}
+                                        value={name}
+                                    />
+                                </Form.Group>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Email: </Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter email"
+                                        onChange={onEmailInput}
+                                        value={email}
+                                    />
+                                </Form.Group>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>Body: </Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter body"
+                                        onChange={onBodyInput}
+                                        value={body}
+                                    />
+                                </Form.Group>
+                                <Button variant="primary" type="submit">
+                                    Submit
+                                </Button>
+                            </Form>
                         </div>
+                    )}
+                    <div className="row mx-0 mt-3">
+                        {comments.map((comments) => (
+                            <div
+                                className="border border-success mb-3 p-3 w-100"
+                                key={comments.id}
+                            >
+                                <div className="h6">{comments.name}</div>
+                                <div className="h6">{comments.email}</div>
+                                <div className="small font-italic">
+                                    "{comments.body}""
+                                </div>
+                                <Button
+                                    variant="primary"
+                                    onClick={() => handleShow(comments)}
+                                >
+                                    Edit Comment
+                                </Button>
+                                {isEditFormVisible &&
+                                    comments.id === selectedComment && (
+                                        <div>
+                                            <Form
+                                                className="border border-primary p-3 h-100"
+                                                onSubmit={(event) =>
+                                                    editComment(
+                                                        event,
+                                                        comments.id
+                                                    )
+                                                }
+                                            >
+                                                {" "}
+                                                <Form.Group className="mb-3">
+                                                    <Form.Label>
+                                                        Name:{" "}
+                                                    </Form.Label>
+                                                    <Form.Control
+                                                        type="text"
+                                                        placeholder="Enter title"
+                                                        onChange={onNameInput}
+                                                        value={name}
+                                                    />
+                                                </Form.Group>
+                                                <Form.Group className="mb-3">
+                                                    <Form.Label>
+                                                        Email:{" "}
+                                                    </Form.Label>
+                                                    <Form.Control
+                                                        type="text"
+                                                        placeholder="Enter title"
+                                                        onChange={onEmailInput}
+                                                        value={email}
+                                                    />
+                                                </Form.Group>
+                                                <Form.Group className="mb-3">
+                                                    <Form.Label>
+                                                        Body:{" "}
+                                                    </Form.Label>
+                                                    <Form.Control
+                                                        type="text"
+                                                        placeholder="Enter body"
+                                                        onChange={onBodyInput}
+                                                        value={body}
+                                                    />
+                                                </Form.Group>
+                                                <Button
+                                                    variant="primary"
+                                                    type="submit"
+                                                >
+                                                    Submit
+                                                </Button>
+                                            </Form>
+                                        </div>
+                                    )}
+
+                                <button
+                                    className="btn btn-outline-danger btn-sm m-3 p-2"
+                                    onClick={() => deleteComments(comments.id)}
+                                >
+                                    <i className="fa fa-caret-left fa-fw "></i>{" "}
+                                    Delete Comment{" "}
+                                </button>
+                            </div>
+                        ))}
                     </div>
-                ))}
+                </div>
             </div>
         </div>
     );

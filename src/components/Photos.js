@@ -18,11 +18,6 @@ function Photos() {
         <div className="container">
             <div className="row mt-4 mx-0 flex-column">
                 <div className="h2">List of photo(s)</div>
-                <div className="mt-2">
-                    <Link to="/" className="btn btn-outline-secondary">
-                        <i className="fa fa-caret-left fa-fw"></i>Home
-                    </Link>
-                </div>
             </div>
             <div className="row mx-0 mt-3 justify-content-center">
                 {photos.map((photo) => (
@@ -30,7 +25,7 @@ function Photos() {
                         className="col-lg-3 col-md-4 col-6 mb-1 p-2 text-center"
                         key={photo.id}
                     >
-                        <div className="border border-success h-100">
+                        <div className="border border-dark h-100">
                             <img
                                 className="img-fluid"
                                 src={photo.url}

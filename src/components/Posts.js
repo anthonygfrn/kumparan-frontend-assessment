@@ -95,24 +95,24 @@ function Posts() {
     return (
         <div className="container">
             <div className="row mx-0 flex-column mt-4">
+                <Link to="/" className="btn btn-outline-dark m-3">
+                    <i className="fa fa-caret-left fa-fw"></i> Return
+                </Link>
                 <div className="h2">List of posts</div>
                 <div className="mt-2">
-                    <Link to="/" className="btn btn-outline-secondary">
-                        <i className="fa fa-caret-left fa-fw"></i> Back
-                    </Link>
-                </div>
-                <div className="mt-2">
                     <button
-                        className="btn btn-outline-secondary"
+                        className="btn btn-outline-dark"
                         onClick={handleForm}
                     >
                         <i className="fa fa-caret-left fa-fw"></i> Add Post{" "}
                     </button>
                 </div>
+            </div>
+            <div className="mt-2">
                 {isFormVisible && (
                     <div>
                         <Form
-                            className="border border-primary p-3 h-100"
+                            className="border border-dark p-3 h-100"
                             onSubmit={addPost}
                         >
                             <Form.Group className="mb-3">
@@ -150,7 +150,7 @@ function Posts() {
                         <div className="h4">{post.title}</div>
                         <p className="font-italic">"{post.body}"</p>
                         <Link
-                            className="btn btn-outline-primary btn-sm"
+                            className="btn btn-outline-warning btn-sm m-3 p-2"
                             to={{
                                 pathname: `/comments/${post.id}`,
                             }}
@@ -163,7 +163,7 @@ function Posts() {
                             variant="primary"
                             onClick={() => handleShow(post)}
                         >
-                            Edit Button
+                            Edit Post
                         </Button>
                         {isEditFormVisible && post.id === selectedPost && (
                             <div>
@@ -198,16 +198,13 @@ function Posts() {
                                 </Form>
                             </div>
                         )}
-
-                        <div className="mt-2">
-                            <button
-                                className="btn btn-outline-danger btn-sm"
-                                onClick={() => deletePost(post.id)}
-                            >
-                                <i className="fa fa-caret-left fa-fw"></i>{" "}
-                                Delete Post{" "}
-                            </button>
-                        </div>
+                        <button
+                            className="btn btn-outline-danger btn-sm m-3 p-2"
+                            onClick={() => deletePost(post.id)}
+                        >
+                            <i className="fa fa-caret-left fa-fw"></i> Delete
+                            Post{" "}
+                        </button>
                     </div>
                 ))}
             </div>
