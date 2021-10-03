@@ -1,29 +1,24 @@
-import React from 'react';
 import axios from 'axios';
 import { Link} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
-export default class PersonList extends React.Component {
+function App() {
 
 
-    state = {
-        user: []
-    }
+    const [user, setUser] = useState([]);
 
-    componentDidMount() {
+    useEffect(() => {
+        // Your code here
         axios.get(`https://jsonplaceholder.typicode.com/users`)
-            .then(res => {
-                const user = res.data;
-                this.setState({
-                    user
-                });
-            })
-    }
+        .then(res => {
+            setUser(res.data);
+      }, []);
+    } )
 
-    render() {
-        return (
-            <div className="row mx-0 mt-4 justify-content-center">
+  return (
+                    <div className="row mx-0 mt-4 justify-content-center">
                 <h2>List of Users</h2>
-                { this.state.user.map(user =>
+                {user.map(user =>
                     <div className="col-lg-4 col-md-6 mb-1 p-2 text-center" key={user.id}>
                         <div className="border border-primary p-3 h-100">
                             <h5>
@@ -43,7 +38,6 @@ export default class PersonList extends React.Component {
                                 <div className="col-6">
                                     <Link className="btn btn-block btn-outline-success btn-sm" to={{
                                         pathname: `/posts/${user.id}`,
-                                        state: { member: user.id }
                                     }}>
                                     <i className="fa fa-pencil fa-fw"></i>&nbsp;Posts
                                     </Link>
@@ -61,6 +55,10 @@ export default class PersonList extends React.Component {
                     </div>
                 )}
             </div>
-        )
-    }
+
+
+
+  );
 }
+
+export default App;
