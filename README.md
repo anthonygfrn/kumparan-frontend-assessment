@@ -40,4 +40,5 @@ A single page social media dashboard application using javascript and react that
 
 # Comments
 
-Even though successfulyy create/add/delete the post/comment, nothing will actually happened as the API doesn't actually change the data.
+- Even though successfulyy create/add/delete the post/comment, nothing will actually happened as the API doesn't actually change the data.
+- I wanted to do testing, but there are no time left 
