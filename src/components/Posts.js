@@ -55,10 +55,6 @@ function Posts() {
             }
         ))};
 
-    
-    
-
-
 
     return (
         <div className="container">
@@ -73,12 +69,12 @@ function Posts() {
             {isFormVisible && <div >
             <Form className="border border-primary p-3 h-100" onSubmit={addPost}>
             <Form.Group className="mb-3">
-                <Form.Label>Title</Form.Label>
+                <Form.Label>Title: </Form.Label>
                 <Form.Control type="text" placeholder="Enter title" onChange={onTitleInput} value={title} />
             </Form.Group>
 
             <Form.Group className="mb-3" >
-                <Form.Label>Body</Form.Label>
+                <Form.Label>Body: </Form.Label>
                 <Form.Control type="text" placeholder="Enter body" onChange={onBodyInput} value={body} />
             </Form.Group>
             <Button variant="primary" type="submit">
