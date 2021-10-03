@@ -2,7 +2,7 @@
 
 # Deployed Site
 
-Link: https://vercel.com/anthonygfrn/kumparan-frontend-assessment
+Link: https://kumparan-frontend-assessment.vercel.app/
 
 # How to run in local system
 
