@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Deployed Site
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Link: https://vercel.com/anthonygfrn/kumparan-frontend-assessment
 
 ## Available Scripts
 
