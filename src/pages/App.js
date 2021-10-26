@@ -1,4 +1,5 @@
-import UserList from "./components/UserList";
+import Routes from "../navigation/Routes";
+import TopNav from "../components/Nav";
 import { Helmet } from "react-helmet";
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
                 <title>Kumparan Assessment</title>
                 <link rel="canonical" href="http://mysite.com/example" />
             </Helmet>
-            <UserList />
+            <TopNav />
+            <Routes />
         </div>
     );
 }
