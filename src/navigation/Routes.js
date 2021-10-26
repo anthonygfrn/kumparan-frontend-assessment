@@ -1,15 +1,13 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import App from "./App";
-import Posts from "./components/Posts";
-import Albums from "./components/Albums";
-import Photos from "./components/Photos";
-import Comments from "./components/Comments";
+import { Posts, Albums, Photos, Comments, UserList } from "../pages/dashboard";
 
-const Router = () => (
+const Routes = () => (
     <BrowserRouter>
         <Switch>
-            <Route path="/" component={App} exact />
+            <Route path="/"exact>
+                <UserList />
+            </Route>
             <Route path="/posts/:id" component={Posts} />
             <Route path="/albums/:id" component={Albums} />
             <Route path="/photos/:id" component={Photos} />
@@ -18,4 +16,4 @@ const Router = () => (
     </BrowserRouter>
 );
 
-export default Router;
+export default Routes;
