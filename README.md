@@ -12,8 +12,8 @@ Steps:
 
 ```bash
 $ git clone https://github.com/anthonygfrn/kumparan-frontend-assessment.git
-$ npm install
-$ npm start
+$ yarn install
+$ yarn start
 
 ```
 

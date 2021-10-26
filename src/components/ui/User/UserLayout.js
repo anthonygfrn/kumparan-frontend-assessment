@@ -1,3 +1,4 @@
+import * as React from 'react'
 import PageContainer from '../../layout/Container'
 
 function UserLayout(props) {
@@ -10,4 +11,4 @@ function UserLayout(props) {
     )
 }
 
-export default UserLayout
+export default React.memo(UserLayout)

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 function AlbumsList(props) {
     return (
@@ -24,7 +24,7 @@ function AlbumsList(props) {
                 </div>
             ))}
         </div>
-    )
+    );
 }
 
-export default AlbumsList
+export default AlbumsList;

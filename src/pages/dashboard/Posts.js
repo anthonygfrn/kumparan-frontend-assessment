@@ -1,97 +1,96 @@
-import PageContainer from '../../components/layout/Container'
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { useParams } from 'react-router'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import ReturnButton from '../../components/ui/ReturnButton'
+import PageContainer from '../../components/layout/Container';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useParams } from 'react-router';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import ReturnButton from '../../components/ui/ReturnButton';
+import { getPosts } from '../../services/HttpApi';
 
 function Posts() {
-    const [posts, setPosts] = useState([])
-    const { id } = useParams()
-    const [isFormVisible, setFormVisible] = useState(false)
-    //const [counter, setCounter] = useState(101);
-    const [selectedPost, setSelectedPost] = useState(0)
-    const [isEditFormVisible, setEditFormVisible] = useState(false)
+    const [posts, setPosts] = useState([]);
+    const { id } = useParams();
+    const [isFormVisible, setFormVisible] = useState(false);
+    const [selectedPost, setSelectedPost] = useState(0);
+    const [isEditFormVisible, setEditFormVisible] = useState(false);
     const handleShow = (post) => {
-        setSelectedPost(post.id)
+        setSelectedPost(post.id);
         if (isEditFormVisible) {
-            setTitle('')
-            setBody('')
-            setEditFormVisible(false)
+            setTitle('');
+            setBody('');
+            setEditFormVisible(false);
         } else {
-            setTitle(post.title)
-            setBody(post.body)
-            setEditFormVisible(true)
+            setTitle(post.title);
+            setBody(post.body);
+            setEditFormVisible(true);
         }
-    }
+    };
 
-    useEffect(() => {
-        axios
-            .get(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
-            .then((res) => {
-                setPosts(res.data)
-            })
-    }, [id])
-
-    const [body, setBody] = useState('')
-    const [title, setTitle] = useState('')
-    const onBodyInput = ({ target: { value } }) => setBody(value)
-    const onTitleInput = ({ target: { value } }) => setTitle(value)
+    const [body, setBody] = useState('');
+    const [title, setTitle] = useState('');
+    const onBodyInput = ({ target: { value } }) => setBody(value);
+    const onTitleInput = ({ target: { value } }) => setTitle(value);
     const handleForm = () => {
         if (isFormVisible) {
-            setFormVisible(false)
+            setFormVisible(false);
         } else {
-            setFormVisible(true)
+            setFormVisible(true);
         }
-    }
+    };
 
     const addPost = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         const newPost = {
             userId: id,
             title: title,
             body: body,
-        }
+        };
         axios
             .post('https://jsonplaceholder.typicode.com/posts', newPost)
-            .then((response) => setPosts([...posts, response.data]))
-        setTitle('')
-        setBody('')
-        // setCounter(counter + 1);
-    }
+            .then((response) => setPosts([...posts, response.data]));
+        setTitle('');
+        setBody('');
+    };
 
     const editPost = (event, postId) => {
-        event.preventDefault()
+        event.preventDefault();
         const editedPost = {
             id: postId,
             userId: id,
             title: title,
             body: body,
-        }
+        };
         axios
             .put(
                 `https://jsonplaceholder.typicode.com/posts/${postId}`,
                 editedPost
             )
             .then((response) => {
-                console.log(response.data)
-                let newPosts = posts.slice()
-                const postIndex = posts.findIndex((obj) => obj.id === postId)
-                newPosts[postIndex].title = response.data.title
-                newPosts[postIndex].body = response.data.body
-                setPosts(newPosts)
-            })
-    }
+                console.log(response.data);
+                let newPosts = posts.slice();
+                const postIndex = posts.findIndex((obj) => obj.id === postId);
+                newPosts[postIndex].title = response.data.title;
+                newPosts[postIndex].body = response.data.body;
+                setPosts(newPosts);
+            });
+    };
 
     const deletePost = (postId) => {
         setPosts(
             posts.filter(function (value, index, posts) {
-                return value.id !== postId
+                return value.id !== postId;
             })
-        )
-    }
+        );
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await getPosts(id);
+            setPosts(res.data);
+        };
+        fetchData();
+    }, [id]);
 
     return (
         <PageContainer>
@@ -203,7 +202,7 @@ function Posts() {
                 ))}
             </div>
         </PageContainer>
-    )
+    );
 }
 
-export default Posts
+export default Posts;

@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { Link } from 'react-router-dom'
 
 function ReturnButton() {
@@ -10,4 +11,4 @@ function ReturnButton() {
     )
 }
 
-export default ReturnButton
+export default React.memo(ReturnButton)

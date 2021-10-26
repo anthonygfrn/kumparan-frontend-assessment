@@ -1,6 +1,7 @@
-import Routes from '../navigation/Routes'
-import TopNav from '../components/layout/Nav'
-import { Helmet } from 'react-helmet'
+import Routes from '../navigation/Routes';
+import TopNav from '../components/layout/Nav';
+import { Helmet } from 'react-helmet';
+require('dotenv').config();
 
 function App() {
     return (
@@ -13,7 +14,7 @@ function App() {
             <TopNav />
             <Routes />
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
