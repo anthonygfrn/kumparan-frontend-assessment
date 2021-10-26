@@ -1,4 +1,4 @@
-import UserLayout from "./layout/UserLayout";
+import UserLayout from "../../layout/UserLayout";
 import { Link } from "react-router-dom";
 
 function UserList(props){

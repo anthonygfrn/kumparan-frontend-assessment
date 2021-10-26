@@ -1,14 +1,12 @@
 import PageContainer from '../../components/layout/Container';
-import AlbumsList from '../../components/AlbumsList';
+import AlbumsList from '../../components/ui/Albums/AlbumsList';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 import ReturnButton from "../../components/ui/ReturnButton";
 
-
 function Albums() {
     const [albums, setAlbums] = useState([]);
-
     const { id } = useParams();
 
     useEffect(() => {

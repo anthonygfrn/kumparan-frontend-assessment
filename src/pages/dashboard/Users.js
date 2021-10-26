@@ -1,5 +1,5 @@
 import PageContainer from "../../components/layout/Container";
-import UserList from "../../components/UserList";
+import UserList from "../../components/ui/User/UserList";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 

@@ -1,5 +1,5 @@
 import PageContainer from '../../components/layout/Container';
-import PhotosList from "../../components/PhotosList";
+import PhotosList from "../../components/ui/Photos/PhotosList";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";

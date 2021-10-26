@@ -1,3 +1,6 @@
+import PhotoButton from "../Albums/PhotoButton";
+import PhotoBorder from "./PhotoBorder";
+
 function PhotosList(props) {
     return (
     <div className="row mx-0 mt-3 justify-content-center">
@@ -6,7 +9,7 @@ function PhotosList(props) {
                 className="col-lg-3 col-md-4 col-6 mb-1 p-2 text-center"
                 key={photo.id}
             >
-                <div className="border border-dark h-100">
+                <PhotoBorder>
                     <img
                         className="img-fluid"
                         src={photo.url}
@@ -15,10 +18,10 @@ function PhotosList(props) {
                     <div className="h6 font-italic font-weight-normal m-2">
                         "{photo.title}"
                     </div>
-                    <div className="small m-2">
+                    <PhotoButton>
                         photo id : {photo.id}
-                    </div>
-                </div>
+                    </PhotoButton>
+                </PhotoBorder>
             </div>
         )))}
     </div>
