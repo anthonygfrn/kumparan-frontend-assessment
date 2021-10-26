@@ -1,4 +1,4 @@
-import { Navbar, Container } from "react-bootstrap";
+import { Navbar, Container } from 'react-bootstrap'
 
 function TopNav() {
     return (
@@ -9,7 +9,7 @@ function TopNav() {
                 </Container>
             </Navbar>
         </>
-    );
+    )
 }
 
-export default TopNav;
+export default TopNav

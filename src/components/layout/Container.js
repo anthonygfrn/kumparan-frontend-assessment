@@ -1,9 +1,5 @@
-function PageContainer(props){
-    return (
-        <div className="container">
-            {props.children};
-        </div>
-    )
+function PageContainer(props) {
+    return <div className="container">{props.children};</div>
 }
 
-export default PageContainer;
+export default PageContainer
