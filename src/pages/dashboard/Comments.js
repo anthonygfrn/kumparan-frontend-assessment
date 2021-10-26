@@ -65,7 +65,7 @@ function Comments() {
         // setCounter(counter + 1);
     };
 
-    function editComment(event, commentId) {
+    const editComment = (event, commentId) => {
         event.preventDefault();
         const editedPost = {
             id: commentId,
@@ -92,7 +92,7 @@ function Comments() {
             });
     }
 
-    function deleteComments(commentId) {
+    const deleteComments = (commentId) => {
         console.log(commentId);
         setComments(
             comments.filter(function (value, index, posts) {

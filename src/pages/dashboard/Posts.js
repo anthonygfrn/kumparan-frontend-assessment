@@ -1,9 +1,11 @@
+import PageContainer from "../../components/layout/Container";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import ReturnButton from "../../components/ui/ReturnButton";
 
 function Posts() {
     const [posts, setPosts] = useState([]);
@@ -60,7 +62,7 @@ function Posts() {
         // setCounter(counter + 1);
     };
 
-    function editPost(event, postId) {
+    const editPost = (event, postId) => {
         event.preventDefault();
         const editedPost = {
             id: postId,
@@ -83,7 +85,7 @@ function Posts() {
             });
     }
 
-    function deletePost(postId) {
+    const deletePost = (postId) => {
         console.log(postId);
         setPosts(
             posts.filter(function (value, index, posts) {
@@ -93,11 +95,8 @@ function Posts() {
     }
 
     return (
-        <div className="container">
-            <div className="row mx-0 flex-column mt-4">
-                <Link to="/" className="btn btn-outline-dark m-3">
-                    <i className="fa fa-caret-left fa-fw"></i> Return
-                </Link>
+        <PageContainer>
+                <ReturnButton />
                 <div className="h2">List of posts</div>
                 <div className="mt-2">
                     <button
@@ -107,8 +106,7 @@ function Posts() {
                         <i className="fa fa-caret-left fa-fw"></i> Add Post{" "}
                     </button>
                 </div>
-            </div>
-            <div className="mt-2">
+                <div className="mt-2">
                 {isFormVisible && (
                     <div>
                         <Form
@@ -208,7 +206,7 @@ function Posts() {
                     </div>
                 ))}
             </div>
-        </div>
+        </PageContainer>
     );
 }
 
