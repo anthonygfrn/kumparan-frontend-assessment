@@ -1,3 +1,5 @@
+import PageContainer from '../../components/layout/Container';
+import Title from '../../components/layout/Title';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
@@ -11,6 +13,13 @@ function Comments() {
     const [isFormVisible, setFormVisible] = useState(false);
     const [selectedComment, setSelectedComment] = useState(0);
     const [isEditFormVisible, setEditFormVisible] = useState(false);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [body, setBody] = useState('');
+    const onNameInput = ({ target: { value } }) => setName(value);
+    const onEmailInput = ({ target: { value } }) => setEmail(value);
+    const onBodyInput = ({ target: { value } }) => setBody(value);
+
     const handleShow = (comments) => {
         setSelectedComment(comments.id);
         if (isEditFormVisible) {
@@ -25,13 +34,6 @@ function Comments() {
             setEditFormVisible(true);
         }
     };
-
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [body, setBody] = useState('');
-    const onNameInput = ({ target: { value } }) => setName(value);
-    const onEmailInput = ({ target: { value } }) => setEmail(value);
-    const onBodyInput = ({ target: { value } }) => setBody(value);
 
     const handleForm = () => {
         if (isFormVisible) {
@@ -86,7 +88,6 @@ function Comments() {
     };
 
     const deleteComments = (commentId) => {
-        console.log(commentId);
         setComments(
             comments.filter(function (value) {
                 return value.id !== commentId;
@@ -103,9 +104,9 @@ function Comments() {
     }, [id]);
 
     return (
-        <div className="container">
+        <PageContainer>
             <div className="row mx-0">
-                <div className="h3 m-2 mt-4">Comments :</div>
+                <Title title={'Comments: '} />
                 <div className="mt-2">
                     <button
                         className="btn btn-outline-dark m-2"
@@ -240,7 +241,7 @@ function Comments() {
                     </div>
                 </div>
             </div>
-        </div>
+        </PageContainer>
     );
 }
 

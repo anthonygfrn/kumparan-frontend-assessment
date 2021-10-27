@@ -1,4 +1,5 @@
 import PageContainer from '../../components/layout/Container';
+import Title from '../../components/layout/Title';
 import PhotosList from '../../components/ui/Photos/PhotosList';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -18,6 +19,7 @@ function Photos() {
 
     return (
         <PageContainer>
+            <Title title={'List of Photos'} />
             <PhotosList photos={photos} />
         </PageContainer>
     );
