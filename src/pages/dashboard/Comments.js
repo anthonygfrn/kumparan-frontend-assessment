@@ -13,6 +13,7 @@ function Comments() {
     const [isFormVisible, setFormVisible] = useState(false);
     const [selectedComment, setSelectedComment] = useState(0);
     const [isEditFormVisible, setEditFormVisible] = useState(false);
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [body, setBody] = useState('');
