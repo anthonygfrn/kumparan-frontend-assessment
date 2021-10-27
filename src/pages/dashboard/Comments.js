@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useParams } from "react-router";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import { getComments } from '../../services/HttpApi';
 
 function Comments() {
     const [comments, setComments] = useState([]);
@@ -13,9 +14,9 @@ function Comments() {
     const handleShow = (comments) => {
         setSelectedComment(comments.id);
         if (isEditFormVisible) {
-            setName("");
-            setEmail("");
-            setBody("");
+            setName('');
+            setEmail('');
+            setBody('');
             setEditFormVisible(false);
         } else {
             setName(comments.name);
@@ -25,17 +26,9 @@ function Comments() {
         }
     };
 
-    useEffect(() => {
-        axios
-            .get(`https://jsonplaceholder.typicode.com/comments?postId=${id}`)
-            .then((res) => {
-                setComments(res.data);
-            });
-    }, [id]);
-
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [body, setBody] = useState("");
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [body, setBody] = useState('');
     const onNameInput = ({ target: { value } }) => setName(value);
     const onEmailInput = ({ target: { value } }) => setEmail(value);
     const onBodyInput = ({ target: { value } }) => setBody(value);
@@ -57,15 +50,15 @@ function Comments() {
             body: body,
         };
         axios
-            .post("https://jsonplaceholder.typicode.com/comments", newComments)
+            .post('https://jsonplaceholder.typicode.com/comments', newComments)
             .then((response) => setComments([...comments, response.data]));
-        setName("");
-        setEmail("");
-        setBody("");
+        setName('');
+        setEmail('');
+        setBody('');
         // setCounter(counter + 1);
     };
 
-    function editComment(event, commentId) {
+    const editComment = (event, commentId) => {
         event.preventDefault();
         const editedPost = {
             id: commentId,
@@ -90,16 +83,24 @@ function Comments() {
                 newComments[postIndex].body = response.data.body;
                 setComments(newComments);
             });
-    }
+    };
 
-    function deleteComments(commentId) {
+    const deleteComments = (commentId) => {
         console.log(commentId);
         setComments(
-            comments.filter(function (value, index, posts) {
+            comments.filter(function (value) {
                 return value.id !== commentId;
             })
         );
-    }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await getComments(id);
+            setComments(res.data);
+        };
+        fetchData();
+    }, [id]);
 
     return (
         <div className="container">
@@ -111,7 +112,7 @@ function Comments() {
                         onClick={handleForm}
                     >
                         <i className="fa fa-caret-left fa-fw"></i> Add new
-                        comments{" "}
+                        comments{' '}
                     </button>
                 </div>
                 <div className="mt-2">
@@ -163,7 +164,7 @@ function Comments() {
                                 <div className="h6">{comments.name}</div>
                                 <div className="h6">{comments.email}</div>
                                 <div className="small font-italic">
-                                    "{comments.body}""
+                                    {comments.body}
                                 </div>
                                 <Button
                                     variant="primary"
@@ -183,10 +184,10 @@ function Comments() {
                                                     )
                                                 }
                                             >
-                                                {" "}
+                                                {' '}
                                                 <Form.Group className="mb-3">
                                                     <Form.Label>
-                                                        Name:{" "}
+                                                        Name:{' '}
                                                     </Form.Label>
                                                     <Form.Control
                                                         type="text"
@@ -197,7 +198,7 @@ function Comments() {
                                                 </Form.Group>
                                                 <Form.Group className="mb-3">
                                                     <Form.Label>
-                                                        Email:{" "}
+                                                        Email:{' '}
                                                     </Form.Label>
                                                     <Form.Control
                                                         type="text"
@@ -208,7 +209,7 @@ function Comments() {
                                                 </Form.Group>
                                                 <Form.Group className="mb-3">
                                                     <Form.Label>
-                                                        Body:{" "}
+                                                        Body:{' '}
                                                     </Form.Label>
                                                     <Form.Control
                                                         type="text"
@@ -231,8 +232,8 @@ function Comments() {
                                     className="btn btn-outline-danger btn-sm m-3 p-2"
                                     onClick={() => deleteComments(comments.id)}
                                 >
-                                    <i className="fa fa-caret-left fa-fw "></i>{" "}
-                                    Delete Comment{" "}
+                                    <i className="fa fa-caret-left fa-fw "></i>{' '}
+                                    Delete Comment{' '}
                                 </button>
                             </div>
                         ))}

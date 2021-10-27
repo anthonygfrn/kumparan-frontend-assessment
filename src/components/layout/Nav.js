@@ -1,4 +1,5 @@
-import { Navbar, Container } from "react-bootstrap";
+import * as React from 'react';
+import { Navbar, Container } from 'react-bootstrap';
 
 function TopNav() {
     return (
@@ -12,4 +13,4 @@ function TopNav() {
     );
 }
 
-export default TopNav;
+export default React.memo(TopNav);

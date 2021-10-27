@@ -1,22 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { useParams } from "react-router";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import PageContainer from '../../components/layout/Container';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useParams } from 'react-router';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import ReturnButton from '../../components/ui/ReturnButton';
+import { getPosts } from '../../services/HttpApi';
 
 function Posts() {
     const [posts, setPosts] = useState([]);
     const { id } = useParams();
     const [isFormVisible, setFormVisible] = useState(false);
-    //const [counter, setCounter] = useState(101);
     const [selectedPost, setSelectedPost] = useState(0);
     const [isEditFormVisible, setEditFormVisible] = useState(false);
+
     const handleShow = (post) => {
         setSelectedPost(post.id);
         if (isEditFormVisible) {
-            setTitle("");
-            setBody("");
+            setTitle('');
+            setBody('');
             setEditFormVisible(false);
         } else {
             setTitle(post.title);
@@ -25,18 +28,11 @@ function Posts() {
         }
     };
 
-    useEffect(() => {
-        axios
-            .get(`https://jsonplaceholder.typicode.com/posts?userId=${id}`)
-            .then((res) => {
-                setPosts(res.data);
-            });
-    }, [id]);
-
-    const [body, setBody] = useState("");
-    const [title, setTitle] = useState("");
+    const [body, setBody] = useState('');
+    const [title, setTitle] = useState('');
     const onBodyInput = ({ target: { value } }) => setBody(value);
     const onTitleInput = ({ target: { value } }) => setTitle(value);
+
     const handleForm = () => {
         if (isFormVisible) {
             setFormVisible(false);
@@ -53,14 +49,13 @@ function Posts() {
             body: body,
         };
         axios
-            .post("https://jsonplaceholder.typicode.com/posts", newPost)
+            .post('https://jsonplaceholder.typicode.com/posts', newPost)
             .then((response) => setPosts([...posts, response.data]));
-        setTitle("");
-        setBody("");
-        // setCounter(counter + 1);
+        setTitle('');
+        setBody('');
     };
 
-    function editPost(event, postId) {
+    const editPost = (event, postId) => {
         event.preventDefault();
         const editedPost = {
             id: postId,
@@ -81,32 +76,32 @@ function Posts() {
                 newPosts[postIndex].body = response.data.body;
                 setPosts(newPosts);
             });
-    }
+    };
 
-    function deletePost(postId) {
-        console.log(postId);
+    const deletePost = (postId) => {
         setPosts(
-            posts.filter(function (value, index, posts) {
+            posts.filter(function (value) {
                 return value.id !== postId;
             })
         );
-    }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await getPosts(id);
+            setPosts(res.data);
+        };
+        fetchData();
+    }, [id]);
 
     return (
-        <div className="container">
-            <div className="row mx-0 flex-column mt-4">
-                <Link to="/" className="btn btn-outline-dark m-3">
-                    <i className="fa fa-caret-left fa-fw"></i> Return
-                </Link>
-                <div className="h2">List of posts</div>
-                <div className="mt-2">
-                    <button
-                        className="btn btn-outline-dark"
-                        onClick={handleForm}
-                    >
-                        <i className="fa fa-caret-left fa-fw"></i> Add Post{" "}
-                    </button>
-                </div>
+        <PageContainer>
+            <ReturnButton />
+            <div className="h2">List of posts</div>
+            <div className="mt-2">
+                <button className="btn btn-outline-dark" onClick={handleForm}>
+                    <i className="fa fa-caret-left fa-fw"></i> Add Post{' '}
+                </button>
             </div>
             <div className="mt-2">
                 {isFormVisible && (
@@ -148,14 +143,14 @@ function Posts() {
                         key={post.id}
                     >
                         <div className="h4">{post.title}</div>
-                        <p className="font-italic">"{post.body}"</p>
+                        <p className="font-italic">{post.body}</p>
                         <Link
                             className="btn btn-outline-warning btn-sm m-3 p-2"
                             to={{
                                 pathname: `/comments/${post.id}`,
                             }}
                         >
-                            {" "}
+                            {' '}
                             See Comment(s)
                         </Link>
 
@@ -173,7 +168,7 @@ function Posts() {
                                         editPost(event, post.id)
                                     }
                                 >
-                                    {" "}
+                                    {' '}
                                     <Form.Group className="mb-3">
                                         <Form.Label>Title: </Form.Label>
                                         <Form.Control
@@ -203,12 +198,12 @@ function Posts() {
                             onClick={() => deletePost(post.id)}
                         >
                             <i className="fa fa-caret-left fa-fw"></i> Delete
-                            Post{" "}
+                            Post{' '}
                         </button>
                     </div>
                 ))}
             </div>
-        </div>
+        </PageContainer>
     );
 }
 
