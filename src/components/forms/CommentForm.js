@@ -2,6 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
+import FormContent from './FormContent';
 
 function CommentForm({
     add,
@@ -23,7 +24,7 @@ function CommentForm({
     };
 
     return (
-        <>
+        <div>
             <div className="mt-2">
                 <button
                     className="btn btn-outline-dark m-2"
@@ -39,33 +40,24 @@ function CommentForm({
                             className="border border-primary p-3 h-100"
                             onSubmit={add}
                         >
-                            <Form.Group className="mb-3">
-                                <Form.Label>Name: </Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter Name"
-                                    onChange={name}
-                                    value={NameValue}
-                                />
-                            </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Email: </Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter email"
-                                    onChange={email}
-                                    value={EmailValue}
-                                />
-                            </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Label>Body: </Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter body"
-                                    onChange={body}
-                                    value={BodyValue}
-                                />
-                            </Form.Group>
+                            <FormContent
+                                label={'Name: '}
+                                placeholder={'Enter Name'}
+                                onChange={name}
+                                value={NameValue}
+                            />
+                            <FormContent
+                                label={'Email: '}
+                                placeholder={'Enter Email'}
+                                onChange={email}
+                                value={EmailValue}
+                            />
+                            <FormContent
+                                label={'Body: '}
+                                placeholder={'Enter body'}
+                                onChange={body}
+                                value={BodyValue}
+                            />
                             <Button variant="primary" type="submit">
                                 Submit
                             </Button>
@@ -73,7 +65,7 @@ function CommentForm({
                     </div>
                 )}
             </div>
-        </>
+        </div>
     );
 }
 

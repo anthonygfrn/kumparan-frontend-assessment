@@ -50,7 +50,6 @@ function Comments() {
         setName('');
         setEmail('');
         setBody('');
-        // setCounter(counter + 1);
     };
 
     const editComment = (event, commentId) => {
