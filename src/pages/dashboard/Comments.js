@@ -88,7 +88,7 @@ function Comments() {
     const deleteComments = (commentId) => {
         console.log(commentId);
         setComments(
-            comments.filter(function (value, index, posts) {
+            comments.filter(function (value) {
                 return value.id !== commentId;
             })
         );
@@ -164,7 +164,7 @@ function Comments() {
                                 <div className="h6">{comments.name}</div>
                                 <div className="h6">{comments.email}</div>
                                 <div className="small font-italic">
-                                    "{comments.body}""
+                                    {comments.body}
                                 </div>
                                 <Button
                                     variant="primary"

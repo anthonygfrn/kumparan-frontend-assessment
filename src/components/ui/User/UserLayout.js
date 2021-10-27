@@ -1,5 +1,5 @@
-import * as React from 'react'
-import PageContainer from '../../layout/Container'
+import * as React from 'react';
+import PageContainer from '../../layout/Container';
 
 function UserLayout(props) {
     return (
@@ -8,7 +8,7 @@ function UserLayout(props) {
                 {props.children}
             </div>
         </PageContainer>
-    )
+    );
 }
 
-export default React.memo(UserLayout)
+export default React.memo(UserLayout);

@@ -1,5 +1,6 @@
-import UserLayout from './UserLayout'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import UserLayout from './UserLayout';
+import { Link } from 'react-router-dom';
 
 function UserList(props) {
     return (
@@ -51,7 +52,7 @@ function UserList(props) {
                 </div>
             ))}
         </UserLayout>
-    )
+    );
 }
 
-export default UserList
+export default UserList;

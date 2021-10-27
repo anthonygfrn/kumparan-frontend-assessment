@@ -1,7 +1,7 @@
+import React from 'react';
 import Routes from '../navigation/Routes';
 import TopNav from '../components/layout/Nav';
 import { Helmet } from 'react-helmet';
-require('dotenv').config();
 
 function App() {
     return (

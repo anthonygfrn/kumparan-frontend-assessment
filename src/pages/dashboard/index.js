@@ -4,4 +4,4 @@ import Photos from './Photos';
 import Posts from './Posts';
 import UserList from './Users';
 
-export {Albums, Comments, Photos, Posts, UserList};
+export { Albums, Comments, Photos, Posts, UserList };

@@ -1,11 +1,11 @@
-import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Posts, Albums, Photos, Comments, UserList } from "../pages/dashboard";
+import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Posts, Albums, Photos, Comments, UserList } from '../pages/dashboard';
 
 const Routes = () => (
     <BrowserRouter>
         <Switch>
-            <Route path="/"exact>
+            <Route path="/" exact>
                 <UserList />
             </Route>
             <Route path="/posts/:id" component={Posts} />

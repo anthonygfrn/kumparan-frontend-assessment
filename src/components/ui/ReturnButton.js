@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { Link } from 'react-router-dom'
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 function ReturnButton() {
     return (
@@ -8,7 +8,7 @@ function ReturnButton() {
                 <i className="fa fa-caret-left fa-fw"></i> Return
             </Link>
         </div>
-    )
+    );
 }
 
-export default React.memo(ReturnButton)
+export default React.memo(ReturnButton);

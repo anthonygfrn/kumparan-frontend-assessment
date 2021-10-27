@@ -14,6 +14,7 @@ function Posts() {
     const [isFormVisible, setFormVisible] = useState(false);
     const [selectedPost, setSelectedPost] = useState(0);
     const [isEditFormVisible, setEditFormVisible] = useState(false);
+
     const handleShow = (post) => {
         setSelectedPost(post.id);
         if (isEditFormVisible) {
@@ -31,6 +32,7 @@ function Posts() {
     const [title, setTitle] = useState('');
     const onBodyInput = ({ target: { value } }) => setBody(value);
     const onTitleInput = ({ target: { value } }) => setTitle(value);
+
     const handleForm = () => {
         if (isFormVisible) {
             setFormVisible(false);
@@ -78,7 +80,7 @@ function Posts() {
 
     const deletePost = (postId) => {
         setPosts(
-            posts.filter(function (value, index, posts) {
+            posts.filter(function (value) {
                 return value.id !== postId;
             })
         );
@@ -141,7 +143,7 @@ function Posts() {
                         key={post.id}
                     >
                         <div className="h4">{post.title}</div>
-                        <p className="font-italic">"{post.body}"</p>
+                        <p className="font-italic">{post.body}</p>
                         <Link
                             className="btn btn-outline-warning btn-sm m-3 p-2"
                             to={{
