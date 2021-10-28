@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import ReturnButton from '../../components/ui/ReturnButton';
+import ReturnButton from '../../components/layout/ReturnButton';
 import { getPosts } from '../../services/HttpApi';
 import PostForm from '../../components/forms/PostForm';
 

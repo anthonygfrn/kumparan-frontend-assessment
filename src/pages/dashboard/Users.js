@@ -1,28 +1,22 @@
 import PageContainer from '../../components/layout/Container';
 import Title from '../../components/layout/Title';
+import React, { useEffect } from 'react';
+import { useAppState } from '../../context/appState';
+import { getUsersList } from '../../actions/usersAction';
 import UserList from '../../components/ui/User/UserList';
-import React, { useState, useEffect } from 'react';
-import UserLayout from '../../components/ui/User/UserLayout';
-import { getUser } from '../../services/HttpApi';
 
 function App() {
-    const [users, setUser] = useState([]);
+    const [state, dispatch] = useAppState();
+    const { getUsersResult } = state;
 
     useEffect(() => {
-        const fetchData = async () => {
-            const user = await getUser();
-            setUser(user.data);
-        };
-
-        fetchData();
-    }, []);
+        getUsersList(dispatch);
+    }, [dispatch]);
 
     return (
         <PageContainer>
-            <UserLayout>
-                <Title title={'List of Users'} />
-                <UserList users={users} />
-            </UserLayout>
+            <Title title={'List of Users'} />
+            {getUsersResult ? <UserList users={getUsersResult} /> : ''}
         </PageContainer>
     );
 }
