@@ -1,4 +1,5 @@
 import PageContainer from '../../components/layout/Container';
+import Title from '../../components/layout/Title';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -7,13 +8,17 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ReturnButton from '../../components/ui/ReturnButton';
 import { getPosts } from '../../services/HttpApi';
+import PostForm from '../../components/forms/PostForm';
 
 function Posts() {
     const [posts, setPosts] = useState([]);
     const { id } = useParams();
-    const [isFormVisible, setFormVisible] = useState(false);
     const [selectedPost, setSelectedPost] = useState(0);
     const [isEditFormVisible, setEditFormVisible] = useState(false);
+    const [body, setBody] = useState('');
+    const [title, setTitle] = useState('');
+    const onBodyInput = ({ target: { value } }) => setBody(value);
+    const onTitleInput = ({ target: { value } }) => setTitle(value);
 
     const handleShow = (post) => {
         setSelectedPost(post.id);
@@ -25,19 +30,6 @@ function Posts() {
             setTitle(post.title);
             setBody(post.body);
             setEditFormVisible(true);
-        }
-    };
-
-    const [body, setBody] = useState('');
-    const [title, setTitle] = useState('');
-    const onBodyInput = ({ target: { value } }) => setBody(value);
-    const onTitleInput = ({ target: { value } }) => setTitle(value);
-
-    const handleForm = () => {
-        if (isFormVisible) {
-            setFormVisible(false);
-        } else {
-            setFormVisible(true);
         }
     };
 
@@ -97,45 +89,14 @@ function Posts() {
     return (
         <PageContainer>
             <ReturnButton />
-            <div className="h2">List of posts</div>
-            <div className="mt-2">
-                <button className="btn btn-outline-dark" onClick={handleForm}>
-                    <i className="fa fa-caret-left fa-fw"></i> Add Post{' '}
-                </button>
-            </div>
-            <div className="mt-2">
-                {isFormVisible && (
-                    <div>
-                        <Form
-                            className="border border-dark p-3 h-100"
-                            onSubmit={addPost}
-                        >
-                            <Form.Group className="mb-3">
-                                <Form.Label>Title: </Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter title"
-                                    onChange={onTitleInput}
-                                    value={title}
-                                />
-                            </Form.Group>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label>Body: </Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter body"
-                                    onChange={onBodyInput}
-                                    value={body}
-                                />
-                            </Form.Group>
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
-                        </Form>
-                    </div>
-                )}
-            </div>
+            <PostForm
+                add={addPost}
+                title={onTitleInput}
+                body={onBodyInput}
+                TitleValue={title}
+                BodyValue={body}
+            />
+            <Title title={'List of Posts'} />
             <div className="row mx-0 mt-3">
                 {posts.map((post) => (
                     <div

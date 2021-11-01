@@ -1,4 +1,5 @@
 import PageContainer from '../../components/layout/Container';
+import Title from '../../components/layout/Title';
 import AlbumsList from '../../components/ui/Albums/AlbumsList';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
@@ -20,7 +21,7 @@ function Albums() {
     return (
         <PageContainer>
             <ReturnButton />
-            <div className="h2">List of Albums</div>
+            <Title title={'List of Albums'} />
             <AlbumsList albums={albums} />
         </PageContainer>
     );
