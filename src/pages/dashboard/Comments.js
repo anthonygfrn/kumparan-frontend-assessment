@@ -3,16 +3,17 @@ import Title from '../../components/layout/Title';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { getComments } from '../../services/HttpApi';
+// import Form from 'react-bootstrap/Form';
+// import Button from 'react-bootstrap/Button';
 import CommentForm from '../../components/forms/CommentForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { getListComments } from '../../actions/CommentAction';
 
 function Comments() {
     const [comments, setComments] = useState([]);
     const { id } = useParams();
-    const [selectedComment, setSelectedComment] = useState(0);
-    const [isEditFormVisible, setEditFormVisible] = useState(false);
+    // const [selectedComment, setSelectedComment] = useState(0);
+    // const [isEditFormVisible, setEditFormVisible] = useState(false);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -21,20 +22,27 @@ function Comments() {
     const onEmailInput = ({ target: { value } }) => setEmail(value);
     const onBodyInput = ({ target: { value } }) => setBody(value);
 
-    const handleShow = (comments) => {
-        setSelectedComment(comments.id);
-        if (isEditFormVisible) {
-            setName('');
-            setEmail('');
-            setBody('');
-            setEditFormVisible(false);
-        } else {
-            setName(comments.name);
-            setEmail(comments.email);
-            setBody(comments.body);
-            setEditFormVisible(true);
-        }
-    };
+    const {
+        getListCommentsResult,
+        getListCommentsLoading,
+        getListCommentsError,
+    } = useSelector((state) => state.commentReducer);
+    const dispatch = useDispatch();
+
+    // const handleShow = (comments) => {
+    //     setSelectedComment(comments.id);
+    //     if (isEditFormVisible) {
+    //         setName('');
+    //         setEmail('');
+    //         setBody('');
+    //         setEditFormVisible(false);
+    //     } else {
+    //         setName(comments.name);
+    //         setEmail(comments.email);
+    //         setBody(comments.body);
+    //         setEditFormVisible(true);
+    //     }
+    // };
 
     const addComments = (event) => {
         event.preventDefault();
@@ -52,48 +60,49 @@ function Comments() {
         setBody('');
     };
 
-    const editComment = (event, commentId) => {
-        event.preventDefault();
-        const editedPost = {
-            id: commentId,
-            postId: id,
-            name: name,
-            email: email,
-            body: body,
-        };
-        axios
-            .put(
-                `https://jsonplaceholder.typicode.com/comments/${commentId}`,
-                editedPost
-            )
-            .then((response) => {
-                console.log(response.data);
-                let newComments = comments.slice();
-                const postIndex = comments.findIndex(
-                    (obj) => obj.id === commentId
-                );
-                newComments[postIndex].name = response.data.name;
-                newComments[postIndex].email = response.data.email;
-                newComments[postIndex].body = response.data.body;
-                setComments(newComments);
-            });
-    };
+    // const editComment = (event, commentId) => {
+    //     event.preventDefault();
+    //     const editedPost = {
+    //         id: commentId,
+    //         postId: id,
+    //         name: name,
+    //         email: email,
+    //         body: body,
+    //     };
+    //     axios
+    //         .put(
+    //             `https://jsonplaceholder.typicode.com/comments/${commentId}`,
+    //             editedPost
+    //         )
+    //         .then((response) => {
+    //             console.log(response.data);
+    //             let newComments = comments.slice();
+    //             const postIndex = comments.findIndex(
+    //                 (obj) => obj.id === commentId
+    //             );
+    //             newComments[postIndex].name = response.data.name;
+    //             newComments[postIndex].email = response.data.email;
+    //             newComments[postIndex].body = response.data.body;
+    //             setComments(newComments);
+    //         });
+    // };
 
-    const deleteComments = (commentId) => {
-        setComments(
-            comments.filter(function (value) {
-                return value.id !== commentId;
-            })
-        );
-    };
+    // const deleteComments = (commentId) => {
+    //     setComments(
+    //         comments.filter(function (value) {
+    //             return value.id !== commentId;
+    //         })
+    //     );
+    // };
 
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await getComments(id);
-            setComments(res.data);
-        };
-        fetchData();
-    }, [id]);
+        // const fetchData = async () => {
+        //     const res = await getComments(id);
+        //     setComments(res.data);
+        // };
+        // fetchData();
+        dispatch(getListComments(id));
+    }, [dispatch]);
 
     return (
         <PageContainer>
@@ -109,7 +118,7 @@ function Comments() {
                     BodyValue={body}
                 />
                 <div className="row mx-0 mt-3">
-                    {comments.map((comments) => (
+                    {/* {comments.map((comments) => (
                         <div
                             className="border border-success mb-3 p-3 w-100"
                             key={comments.id}
@@ -180,7 +189,40 @@ function Comments() {
                                 Delete Comment{' '}
                             </button>
                         </div>
-                    ))}
+                    ))} */}
+                    {getListCommentsResult ? (
+                        getListCommentsResult.map((comments) => {
+                            return (
+                                <div
+                                    className="border border-success mb-3 p-3 w-100"
+                                    key={comments.id}
+                                >
+                                    <div className="h6">{comments.name}</div>
+                                    <div className="h6">{comments.email}</div>
+                                    <div className="small font-italic">
+                                        {comments.body}
+                                    </div>
+                                    {/* <button
+                                        className="btn btn-outline-danger btn-sm m-3 p-2"
+                                        onClick={() =>
+                                            deleteComments(comments.id)
+                                        }
+                                    >
+                                        <i className="fa fa-caret-left fa-fw "></i>{' '}
+                                        Delete Comment{' '}
+                                    </button> */}
+                                </div>
+                            );
+                        })
+                    ) : getListCommentsLoading ? (
+                        <p>Loading... </p>
+                    ) : (
+                        <p>
+                            {getListCommentsError
+                                ? getListCommentsError
+                                : 'Data Kosong'}
+                        </p>
+                    )}
                 </div>
             </div>
         </PageContainer>
