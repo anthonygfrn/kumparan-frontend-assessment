@@ -3,23 +3,15 @@ import Title from '../../components/layout/Title';
 import UserList from '../../components/ui/User/UserList';
 import React, { useEffect } from 'react';
 import UserLayout from '../../components/ui/User/UserLayout';
-// import { getUser } from '../../services/HttpApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListUsers } from '../../actions/UserAction';
 
 function App() {
-    // const [users, setUser] = useState([]);
     const { getListUsersResult, getListUsersLoading, getListUsersError } =
         useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // const fetchData = async () => {
-        //     const user = await getUser();
-        //     setUser(user.data);
-        // };
-
-        // fetchData();
         dispatch(getListUsers());
     }, [dispatch]);
 

@@ -9,7 +9,6 @@ const initialState = {
 const photos = (state = initialState, action) => {
     switch (action.type) {
         case GET_LIST_PHOTOS:
-            console.log('4. Masuk reducer', action);
             return {
                 ...state,
                 getListPhotosResult: action.payload.data,

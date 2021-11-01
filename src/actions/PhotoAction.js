@@ -3,9 +3,7 @@ import axios from 'axios';
 export const GET_LIST_PHOTOS = 'GET_LIST_PHOTOS';
 
 export const getListPhotos = (id) => {
-    console.log('2. Masuk Action');
     return (dispatch) => {
-        //loading
         dispatch({
             type: GET_LIST_PHOTOS,
             payload: {
@@ -15,15 +13,12 @@ export const getListPhotos = (id) => {
             },
         });
 
-        //get API
         axios({
             method: 'GET',
             url: 'https://jsonplaceholder.typicode.com/photos?albumId=' + id,
             timeout: 12000,
         })
             .then((response) => {
-                //berhasil get api
-                console.log('3. Berhasil dapet Data: ', response.data);
                 dispatch({
                     type: GET_LIST_PHOTOS,
                     payload: {
@@ -34,8 +29,6 @@ export const getListPhotos = (id) => {
                 });
             })
             .catch((error) => {
-                // gagal get api
-                console.log('3. Gagal dapat Data: ', error.message);
                 dispatch({
                     type: GET_LIST_PHOTOS,
                     payload: {

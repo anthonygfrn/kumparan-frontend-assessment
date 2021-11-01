@@ -7,18 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getListPhotos } from '../../actions/PhotoAction';
 
 function Photos() {
-    // const [photos, setPhotos] = useState([]);
     const { id } = useParams();
     const { getListPhotosResult, getListPhotosLoading, getListPhotosError } =
         useSelector((state) => state.photoReducer);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // const fetchData = async () => {
-        //     const res = await getPhotos(id);
-        //     setPhotos(res.data);
-        // };
-        // fetchData();
         dispatch(getListPhotos(id));
     }, [dispatch]);
 

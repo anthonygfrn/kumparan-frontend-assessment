@@ -9,7 +9,6 @@ const initialState = {
 const albums = (state = initialState, action) => {
     switch (action.type) {
         case GET_LIST_ALBUMS:
-            console.log('4. Masuk reducer', action);
             return {
                 ...state,
                 getListAlbumsResult: action.payload.data,

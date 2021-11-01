@@ -9,7 +9,6 @@ const initialState = {
 const comments = (state = initialState, action) => {
     switch (action.type) {
         case GET_LIST_COMMENTS:
-            console.log('4. Masuk reducer', action);
             return {
                 ...state,
                 getListCommentsResult: action.payload.data,

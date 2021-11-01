@@ -93,7 +93,7 @@ function Posts() {
 
     return (
         <PageContainer>
-            <ReturnButton />
+            <ReturnButton link={'/'} />
             <PostForm
                 add={addPost}
                 title={onTitleInput}
