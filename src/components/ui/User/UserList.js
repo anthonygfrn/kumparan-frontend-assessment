@@ -15,7 +15,7 @@ function UserList(props) {
                         <p>Username: @{user.username}</p>
                         <p>
                             <small className="text-muted">
-                                <h6>Address: </h6>
+                                <>Address: </>
                                 {user.address.street} {user.address.suite},{' '}
                                 {user.address.city}
                                 <br />
