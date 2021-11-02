@@ -1,6 +1,10 @@
 import axios from 'axios';
 
 export const GET_LIST_COMMENTS = 'GET_LIST_COMMENTS';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const DETAIL_COMMENT = 'DETAIL_COMMENT';
+export const UPDATE_COMMENT = 'UPDATE_COMMENT';
 
 export const getListComments = (id) => {
     return (dispatch) => {
@@ -15,7 +19,7 @@ export const getListComments = (id) => {
 
         axios({
             method: 'GET',
-            url: 'https://jsonplaceholder.typicode.com/comments?postId=' + id,
+            url: 'http://localhost:3000/comments?postId=' + id,
             timeout: 12000,
         })
             .then((response) => {
@@ -31,6 +35,138 @@ export const getListComments = (id) => {
             .catch((error) => {
                 dispatch({
                     type: GET_LIST_COMMENTS,
+                    payload: {
+                        loading: false,
+                        data: false,
+                        errorMessage: error.message,
+                    },
+                });
+            });
+    };
+};
+
+export const addComment = (data) => {
+    return (dispatch) => {
+        dispatch({
+            type: ADD_COMMENT,
+            payload: {
+                loading: true,
+                data: false,
+                errorMessage: false,
+            },
+        });
+
+        axios({
+            method: 'POST',
+            url: 'http://localhost:3000/comments',
+            timeout: 12000,
+            data: data,
+        })
+            .then((response) => {
+                dispatch({
+                    type: ADD_COMMENT,
+                    payload: {
+                        loading: false,
+                        data: response.data,
+                        errorMessage: false,
+                    },
+                });
+            })
+            .catch((error) => {
+                dispatch({
+                    type: ADD_COMMENT,
+                    payload: {
+                        loading: false,
+                        data: false,
+                        errorMessage: error.message,
+                    },
+                });
+            });
+    };
+};
+
+export const deleteComment = (id) => {
+    console.log('2. Masuk Action');
+    return (dispatch) => {
+        dispatch({
+            type: DELETE_COMMENT,
+            payload: {
+                loading: true,
+                data: false,
+                errorMessage: false,
+            },
+        });
+
+        axios({
+            method: 'DELETE',
+            url: 'http://localhost:3000/comments/' + id,
+            timeout: 12000,
+        })
+            .then((response) => {
+                console.log('3. Berhasil dapet Data: ', response.data);
+                dispatch({
+                    type: DELETE_COMMENT,
+                    payload: {
+                        loading: false,
+                        data: response.data,
+                        errorMessage: false,
+                    },
+                });
+            })
+            .catch((error) => {
+                dispatch({
+                    type: DELETE_COMMENT,
+                    payload: {
+                        loading: false,
+                        data: false,
+                        errorMessage: error.message,
+                    },
+                });
+            });
+    };
+};
+
+export const detailComment = (data) => {
+    return (dispatch) => {
+        dispatch({
+            type: DETAIL_COMMENT,
+            payload: {
+                data: data,
+            },
+        });
+    };
+};
+
+export const updateComment = (data) => {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_COMMENT,
+            payload: {
+                loading: true,
+                data: false,
+                errorMessage: false,
+            },
+        });
+
+        axios({
+            method: 'PUT',
+            url: 'http://localhost:3000/comments/' + data.id,
+            timeout: 12000,
+            data: data,
+        })
+            .then((response) => {
+                dispatch({
+                    type: UPDATE_COMMENT,
+                    payload: {
+                        loading: false,
+                        data: response.data,
+                        errorMessage: false,
+                    },
+                });
+            })
+            .catch((error) => {
+                dispatch({
+                    type: UPDATE_COMMENT,
                     payload: {
                         loading: false,
                         data: false,
