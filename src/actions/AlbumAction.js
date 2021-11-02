@@ -15,7 +15,7 @@ export const getListAlbums = (id) => {
 
         axios({
             method: 'GET',
-            url: 'https://jsonplaceholder.typicode.com/albums?userId=' + id,
+            url: 'http://localhost:3000/albums?userId=' + id,
             timeout: 12000,
         })
             .then((response) => {
