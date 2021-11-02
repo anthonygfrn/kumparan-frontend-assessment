@@ -18,7 +18,7 @@ export const getListPosts = (id) => {
 
         axios({
             method: 'GET',
-            url: 'http://localhost:3000/posts/?userId=' + id,
+            url: 'https://jsonplaceholder.typicode.com/posts/?userId=' + id,
             timeout: 12000,
         })
             .then((response) => {
@@ -57,7 +57,7 @@ export const addPost = (data) => {
 
         axios({
             method: 'POST',
-            url: 'http://localhost:3000/posts',
+            url: 'https://jsonplaceholder.typicode.com/posts',
             timeout: 12000,
             data: data,
         })
@@ -85,7 +85,6 @@ export const addPost = (data) => {
 };
 
 export const deletePost = (id) => {
-    console.log('2. Masuk Action');
     return (dispatch) => {
         dispatch({
             type: DELETE_POST,
@@ -98,11 +97,10 @@ export const deletePost = (id) => {
 
         axios({
             method: 'DELETE',
-            url: 'http://localhost:3000/posts/' + id,
+            url: 'https://jsonplaceholder.typicode.com/posts/' + id,
             timeout: 12000,
         })
             .then((response) => {
-                console.log('3. Berhasil dapet Data: ', response.data);
                 dispatch({
                     type: DELETE_POST,
                     payload: {
@@ -113,7 +111,6 @@ export const deletePost = (id) => {
                 });
             })
             .catch((error) => {
-                console.log('3. Gagal dapat Data: ', error.message);
                 dispatch({
                     type: DELETE_POST,
                     payload: {
@@ -140,7 +137,7 @@ export const updatePost = (data) => {
 
         axios({
             method: 'PUT',
-            url: 'http://localhost:3000/posts/' + data.id,
+            url: 'https://jsonplaceholder.typicode.com/posts/' + data.id,
             timeout: 12000,
             data: data,
         })

@@ -15,7 +15,7 @@ export const getListUsers = () => {
 
         axios({
             method: 'GET',
-            url: 'http://localhost:3000/users',
+            url: 'https://jsonplaceholder.typicode.com/users/',
             timeout: 12000,
         })
             .then((response) => {

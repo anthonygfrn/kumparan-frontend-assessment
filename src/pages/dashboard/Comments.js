@@ -41,7 +41,6 @@ function Comments() {
 
     const handleSubmit = (event, commentId) => {
         event.preventDefault();
-        console.log('1. masuk handle submit');
         dispatch(
             updateComment({
                 name: name,

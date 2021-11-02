@@ -37,7 +37,6 @@ function Posts() {
 
     const handleSubmit = (event, postId) => {
         event.preventDefault();
-        console.log('1. masuk handle submit');
         dispatch(
             updatePost({ title: title, body: body, id: postId, userId: id })
         );

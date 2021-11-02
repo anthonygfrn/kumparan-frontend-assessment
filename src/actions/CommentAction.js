@@ -19,7 +19,7 @@ export const getListComments = (id) => {
 
         axios({
             method: 'GET',
-            url: 'http://localhost:3000/comments?postId=' + id,
+            url: 'https://jsonplaceholder.typicode.com/comments?postId=' + id,
             timeout: 12000,
         })
             .then((response) => {
@@ -58,7 +58,7 @@ export const addComment = (data) => {
 
         axios({
             method: 'POST',
-            url: 'http://localhost:3000/comments',
+            url: 'https://jsonplaceholder.typicode.com/comments',
             timeout: 12000,
             data: data,
         })
@@ -86,7 +86,6 @@ export const addComment = (data) => {
 };
 
 export const deleteComment = (id) => {
-    console.log('2. Masuk Action');
     return (dispatch) => {
         dispatch({
             type: DELETE_COMMENT,
@@ -99,11 +98,10 @@ export const deleteComment = (id) => {
 
         axios({
             method: 'DELETE',
-            url: 'http://localhost:3000/comments/' + id,
+            url: 'https://jsonplaceholder.typicode.com/comments/' + id,
             timeout: 12000,
         })
             .then((response) => {
-                console.log('3. Berhasil dapet Data: ', response.data);
                 dispatch({
                     type: DELETE_COMMENT,
                     payload: {
@@ -150,7 +148,7 @@ export const updateComment = (data) => {
 
         axios({
             method: 'PUT',
-            url: 'http://localhost:3000/comments/' + data.id,
+            url: 'https://jsonplaceholder.typicode.com/comments/' + data.id,
             timeout: 12000,
             data: data,
         })

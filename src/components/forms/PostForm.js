@@ -25,13 +25,12 @@ function PostForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('1. masuk handle submit');
+
         dispatch(addPost({ title: title, body: body, userId: id }));
     };
 
     useEffect(() => {
         if (addPostResult) {
-            console.log('5. Masuk component did update');
             dispatch(getListPosts(id));
             setBody('');
             setTitle('');
