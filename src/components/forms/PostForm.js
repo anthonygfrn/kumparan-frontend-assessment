@@ -1,11 +1,19 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FormContent from './FormContent';
+import { addPost, getListPosts } from '../../actions/PostAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 
-function PostForm({ add, title, body, TitleValue, BodyValue }) {
+function PostForm() {
     const [isFormVisible, setFormVisible] = useState(false);
+    const [body, setBody] = useState('');
+    const [title, setTitle] = useState('');
+    const { addPostResult } = useSelector((state) => state.postReducer);
+    const dispatch = useDispatch();
+    const { id } = useParams();
 
     const handleForm = () => {
         if (isFormVisible) {
@@ -14,6 +22,21 @@ function PostForm({ add, title, body, TitleValue, BodyValue }) {
             setFormVisible(true);
         }
     };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log('1. masuk handle submit');
+        dispatch(addPost({ title: title, body: body, userId: id }));
+    };
+
+    useEffect(() => {
+        if (addPostResult) {
+            console.log('5. Masuk component did update');
+            dispatch(getListPosts(id));
+            setBody('');
+            setTitle('');
+        }
+    }, [addPostResult, dispatch]);
 
     return (
         <div>
@@ -30,19 +53,25 @@ function PostForm({ add, title, body, TitleValue, BodyValue }) {
                     <div>
                         <Form
                             className="border border-dark p-3 h-100"
-                            onSubmit={add}
+                            onSubmit={(event) => handleSubmit(event)}
                         >
                             <FormContent
+                                type="text"
                                 label={'Title: '}
                                 placeholder={'Enter Title'}
-                                onChange={title}
-                                value={TitleValue}
+                                onChange={(event) =>
+                                    setTitle(event.target.value)
+                                }
+                                value={title}
                             />
                             <FormContent
+                                type="text"
                                 label={'Body: '}
                                 placeholder={'Enter Body'}
-                                onChange={body}
-                                value={BodyValue}
+                                onChange={(event) =>
+                                    setBody(event.target.value)
+                                }
+                                value={body}
                             />
                             <Button variant="primary" type="submit">
                                 Submit

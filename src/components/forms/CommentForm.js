@@ -1,19 +1,20 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FormContent from './FormContent';
+import { addComment, getListComments } from '../../actions/CommentAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 
-function CommentForm({
-    add,
-    name,
-    email,
-    body,
-    NameValue,
-    EmailValue,
-    BodyValue,
-}) {
+function CommentForm() {
     const [isFormVisible, setFormVisible] = useState(false);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [body, setBody] = useState('');
+    const { addCommentResult } = useSelector((state) => state.commentReducer);
+    const dispatch = useDispatch();
+    const { id } = useParams();
 
     const handleForm = () => {
         if (isFormVisible) {
@@ -22,6 +23,22 @@ function CommentForm({
             setFormVisible(true);
         }
     };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(
+            addComment({ name: name, email: email, body: body, postId: id })
+        );
+    };
+
+    useEffect(() => {
+        if (addCommentResult) {
+            dispatch(getListComments(id));
+            setName('');
+            setEmail('');
+            setBody('');
+        }
+    }, [addCommentResult, dispatch]);
 
     return (
         <div>
@@ -38,25 +55,31 @@ function CommentForm({
                     <div>
                         <Form
                             className="border border-primary p-3 h-100"
-                            onSubmit={add}
+                            onSubmit={(event) => handleSubmit(event)}
                         >
                             <FormContent
                                 label={'Name: '}
                                 placeholder={'Enter Name'}
-                                onChange={name}
-                                value={NameValue}
+                                onChange={(event) =>
+                                    setName(event.target.value)
+                                }
+                                value={name}
                             />
                             <FormContent
                                 label={'Email: '}
                                 placeholder={'Enter Email'}
-                                onChange={email}
-                                value={EmailValue}
+                                onChange={(event) =>
+                                    setEmail(event.target.value)
+                                }
+                                value={email}
                             />
                             <FormContent
                                 label={'Body: '}
                                 placeholder={'Enter body'}
-                                onChange={body}
-                                value={BodyValue}
+                                onChange={(event) =>
+                                    setBody(event.target.value)
+                                }
+                                value={body}
                             />
                             <Button variant="primary" type="submit">
                                 Submit

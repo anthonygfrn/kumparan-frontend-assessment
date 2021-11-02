@@ -1,195 +1,80 @@
 import PageContainer from '../../components/layout/Container';
 import Title from '../../components/layout/Title';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+
 import { useParams } from 'react-router';
-// import Form from 'react-bootstrap/Form';
-// import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import CommentForm from '../../components/forms/CommentForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { getListComments } from '../../actions/CommentAction';
+import {
+    getListComments,
+    deleteComment,
+    updateComment,
+} from '../../actions/CommentAction';
 
 function Comments() {
-    const [comments, setComments] = useState([]);
     const { id } = useParams();
-    // const [selectedComment, setSelectedComment] = useState(0);
-    // const [isEditFormVisible, setEditFormVisible] = useState(false);
-
+    const [selectedComment, setSelectedComment] = useState(0);
+    const [isEditFormVisible, setEditFormVisible] = useState(false);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [body, setBody] = useState('');
-    const onNameInput = ({ target: { value } }) => setName(value);
-    const onEmailInput = ({ target: { value } }) => setEmail(value);
-    const onBodyInput = ({ target: { value } }) => setBody(value);
 
     const {
         getListCommentsResult,
         getListCommentsLoading,
         getListCommentsError,
+        deleteCommentResult,
+        updateCommentResult,
     } = useSelector((state) => state.commentReducer);
     const dispatch = useDispatch();
 
-    // const handleShow = (comments) => {
-    //     setSelectedComment(comments.id);
-    //     if (isEditFormVisible) {
-    //         setName('');
-    //         setEmail('');
-    //         setBody('');
-    //         setEditFormVisible(false);
-    //     } else {
-    //         setName(comments.name);
-    //         setEmail(comments.email);
-    //         setBody(comments.body);
-    //         setEditFormVisible(true);
-    //     }
-    // };
-
-    const addComments = (event) => {
-        event.preventDefault();
-        const newComments = {
-            postId: id,
-            name: name,
-            email: email,
-            body: body,
-        };
-        axios
-            .post('https://jsonplaceholder.typicode.com/comments', newComments)
-            .then((response) => setComments([...comments, response.data]));
-        setName('');
-        setEmail('');
-        setBody('');
+    const handleShow = (comment) => {
+        setSelectedComment(comment.id);
+        if (isEditFormVisible) {
+            setEditFormVisible(false);
+        } else {
+            setEditFormVisible(true);
+        }
     };
 
-    // const editComment = (event, commentId) => {
-    //     event.preventDefault();
-    //     const editedPost = {
-    //         id: commentId,
-    //         postId: id,
-    //         name: name,
-    //         email: email,
-    //         body: body,
-    //     };
-    //     axios
-    //         .put(
-    //             `https://jsonplaceholder.typicode.com/comments/${commentId}`,
-    //             editedPost
-    //         )
-    //         .then((response) => {
-    //             console.log(response.data);
-    //             let newComments = comments.slice();
-    //             const postIndex = comments.findIndex(
-    //                 (obj) => obj.id === commentId
-    //             );
-    //             newComments[postIndex].name = response.data.name;
-    //             newComments[postIndex].email = response.data.email;
-    //             newComments[postIndex].body = response.data.body;
-    //             setComments(newComments);
-    //         });
-    // };
-
-    // const deleteComments = (commentId) => {
-    //     setComments(
-    //         comments.filter(function (value) {
-    //             return value.id !== commentId;
-    //         })
-    //     );
-    // };
+    const handleSubmit = (event, commentId) => {
+        event.preventDefault();
+        console.log('1. masuk handle submit');
+        dispatch(
+            updateComment({
+                name: name,
+                email: email,
+                body: body,
+                id: commentId,
+                postId: id,
+            })
+        );
+    };
 
     useEffect(() => {
-        // const fetchData = async () => {
-        //     const res = await getComments(id);
-        //     setComments(res.data);
-        // };
-        // fetchData();
         dispatch(getListComments(id));
     }, [dispatch]);
+
+    useEffect(() => {
+        if (deleteCommentResult) {
+            dispatch(getListComments(id));
+        }
+    }, [deleteCommentResult, dispatch]);
+
+    useEffect(() => {
+        if (updateCommentResult) {
+            dispatch(getListComments(id));
+        }
+    }, [updateCommentResult, dispatch]);
 
     return (
         <PageContainer>
             <div className="row mx-0">
                 <Title title={'Comments: '} />
-                <CommentForm
-                    add={addComments}
-                    name={onNameInput}
-                    email={onEmailInput}
-                    body={onBodyInput}
-                    NameValue={name}
-                    EmailValue={email}
-                    BodyValue={body}
-                />
+                <CommentForm />
                 <div className="row mx-0 mt-3">
-                    {/* {comments.map((comments) => (
-                        <div
-                            className="border border-success mb-3 p-3 w-100"
-                            key={comments.id}
-                        >
-                            <div className="h6">{comments.name}</div>
-                            <div className="h6">{comments.email}</div>
-                            <div className="small font-italic">
-                                {comments.body}
-                            </div>
-                            <Button
-                                variant="primary"
-                                onClick={() => handleShow(comments)}
-                            >
-                                Edit Comment
-                            </Button>
-                            {isEditFormVisible &&
-                                comments.id === selectedComment && (
-                                    <div>
-                                        <Form
-                                            className="border border-primary p-3 h-100"
-                                            onSubmit={(event) =>
-                                                editComment(event, comments.id)
-                                            }
-                                        >
-                                            {' '}
-                                            <Form.Group className="mb-3">
-                                                <Form.Label>Name: </Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Enter title"
-                                                    onChange={onNameInput}
-                                                    value={name}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group className="mb-3">
-                                                <Form.Label>Email: </Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Enter title"
-                                                    onChange={onEmailInput}
-                                                    value={email}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group className="mb-3">
-                                                <Form.Label>Body: </Form.Label>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Enter body"
-                                                    onChange={onBodyInput}
-                                                    value={body}
-                                                />
-                                            </Form.Group>
-                                            <Button
-                                                variant="primary"
-                                                type="submit"
-                                            >
-                                                Submit
-                                            </Button>
-                                        </Form>
-                                    </div>
-                                )}
-
-                            <button
-                                className="btn btn-outline-danger btn-sm m-3 p-2"
-                                onClick={() => deleteComments(comments.id)}
-                            >
-                                <i className="fa fa-caret-left fa-fw "></i>{' '}
-                                Delete Comment{' '}
-                            </button>
-                        </div>
-                    ))} */}
                     {getListCommentsResult ? (
                         getListCommentsResult.map((comments) => {
                             return (
@@ -202,15 +87,99 @@ function Comments() {
                                     <div className="small font-italic">
                                         {comments.body}
                                     </div>
-                                    {/* <button
+                                    <Button
+                                        variant="primary"
+                                        onClick={() => handleShow(comments)}
+                                    >
+                                        Edit Comment
+                                    </Button>
+                                    {isEditFormVisible &&
+                                        comments.id === selectedComment && (
+                                            <div>
+                                                <Form
+                                                    className="border border-primary p-3 h-100"
+                                                    onSubmit={(event) =>
+                                                        handleSubmit(
+                                                            event,
+                                                            comments.id
+                                                        )
+                                                    }
+                                                >
+                                                    <Form.Group className="mb-3">
+                                                        <Form.Label>
+                                                            Name:
+                                                        </Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            placeholder="Enter title"
+                                                            onChange={(event) =>
+                                                                setName(
+                                                                    event.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                            defaultValue={
+                                                                comments.name
+                                                            }
+                                                            required
+                                                        />
+                                                    </Form.Group>
+                                                    <Form.Group className="mb-3">
+                                                        <Form.Label>
+                                                            Email:
+                                                        </Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            placeholder="Enter title"
+                                                            onChange={(event) =>
+                                                                setEmail(
+                                                                    event.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                            defaultValue={
+                                                                comments.email
+                                                            }
+                                                            required
+                                                        />
+                                                    </Form.Group>
+                                                    <Form.Group className="mb-3">
+                                                        <Form.Label>
+                                                            Body:{' '}
+                                                        </Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            placeholder="Enter body"
+                                                            onChange={(event) =>
+                                                                setBody(
+                                                                    event.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                            defaultValue={
+                                                                comments.body
+                                                            }
+                                                            required
+                                                        />
+                                                    </Form.Group>
+                                                    <Button
+                                                        variant="primary"
+                                                        type="submit"
+                                                    >
+                                                        Submit
+                                                    </Button>
+                                                </Form>
+                                            </div>
+                                        )}
+                                    <button
                                         className="btn btn-outline-danger btn-sm m-3 p-2"
                                         onClick={() =>
-                                            deleteComments(comments.id)
+                                            dispatch(deleteComment(comments.id))
                                         }
                                     >
                                         <i className="fa fa-caret-left fa-fw "></i>{' '}
                                         Delete Comment{' '}
-                                    </button> */}
+                                    </button>
                                 </div>
                             );
                         })
