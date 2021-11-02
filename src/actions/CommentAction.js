@@ -86,7 +86,6 @@ export const addComment = (data) => {
 };
 
 export const deleteComment = (id) => {
-    console.log('2. Masuk Action');
     return (dispatch) => {
         dispatch({
             type: DELETE_COMMENT,
@@ -103,7 +102,6 @@ export const deleteComment = (id) => {
             timeout: 12000,
         })
             .then((response) => {
-                console.log('3. Berhasil dapet Data: ', response.data);
                 dispatch({
                     type: DELETE_COMMENT,
                     payload: {

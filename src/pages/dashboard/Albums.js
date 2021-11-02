@@ -1,6 +1,6 @@
 import PageContainer from '../../components/layout/Container';
-import Title from '../../components/layout/Title';
-import AlbumsList from '../../components/ui/Albums/AlbumsList';
+import Title from '../../components/ui/Title';
+import AlbumsList from '../../components/Albums/AlbumsList';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import ReturnButton from '../../components/ui/ReturnButton';

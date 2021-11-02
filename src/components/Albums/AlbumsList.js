@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from '../../components/ui/Button';
 
 function AlbumsList(props) {
     return (
@@ -12,15 +13,19 @@ function AlbumsList(props) {
                                 ? `${album.title}`
                                 : `${album.title.substring(0, 25)}...`}
                         </div>
-                        <Link
-                            className="btn btn-outline-primary btn-sm"
-                            to={{
-                                pathname: `/photos/${album.id}`,
-                            }}
-                        >
-                            {' '}
-                            See Photo(s)
-                        </Link>
+                        <Button variant="mt-2 btn-dark btn-outline-secondary m-2">
+                            <Link
+                                to={{
+                                    pathname: `/photos/${album.id}`,
+                                }}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'white',
+                                }}
+                            >
+                                See Photo(s)
+                            </Link>
+                        </Button>
                     </div>
                 </div>
             ))}

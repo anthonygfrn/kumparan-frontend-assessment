@@ -1,10 +1,9 @@
 import PageContainer from '../../components/layout/Container';
-import Title from '../../components/layout/Title';
+import Title from '../../components/ui/Title';
 import React, { useState, useEffect } from 'react';
-
 import { useParams } from 'react-router';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Button from '../../components/ui/Button';
 import CommentForm from '../../components/forms/CommentForm';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -41,7 +40,6 @@ function Comments() {
 
     const handleSubmit = (event, commentId) => {
         event.preventDefault();
-        console.log('1. masuk handle submit');
         dispatch(
             updateComment({
                 name: name,
@@ -79,7 +77,7 @@ function Comments() {
                         getListCommentsResult.map((comments) => {
                             return (
                                 <div
-                                    className="border border-success mb-3 p-3 w-100"
+                                    className="border border-dark mb-3 p-3 w-100"
                                     key={comments.id}
                                 >
                                     <div className="h6">{comments.name}</div>
@@ -88,8 +86,12 @@ function Comments() {
                                         {comments.body}
                                     </div>
                                     <Button
-                                        variant="primary"
+                                        variant="mt-2 btn-dark btn-outline-secondary m-2"
                                         onClick={() => handleShow(comments)}
+                                        style={{
+                                            marginLeft: '5px',
+                                            color: 'white',
+                                        }}
                                     >
                                         Edit Comment
                                     </Button>
@@ -97,7 +99,7 @@ function Comments() {
                                         comments.id === selectedComment && (
                                             <div>
                                                 <Form
-                                                    className="border border-primary p-3 h-100"
+                                                    className="border border-dark p-3 h-100"
                                                     onSubmit={(event) =>
                                                         handleSubmit(
                                                             event,
@@ -163,23 +165,29 @@ function Comments() {
                                                         />
                                                     </Form.Group>
                                                     <Button
-                                                        variant="primary"
+                                                        variant="mt-2 btn-dark btn-outline-secondary m-2"
                                                         type="submit"
+                                                        style={{
+                                                            color: 'white',
+                                                        }}
                                                     >
                                                         Submit
                                                     </Button>
                                                 </Form>
                                             </div>
                                         )}
-                                    <button
-                                        className="btn btn-outline-danger btn-sm m-3 p-2"
+                                    <Button
+                                        variant="mt-2 btn-dark btn-outline-danger m-2"
                                         onClick={() =>
                                             dispatch(deleteComment(comments.id))
                                         }
+                                        style={{
+                                            marginLeft: '5px',
+                                            color: 'white',
+                                        }}
                                     >
-                                        <i className="fa fa-caret-left fa-fw "></i>{' '}
-                                        Delete Comment{' '}
-                                    </button>
+                                        Delete Comment
+                                    </Button>
                                 </div>
                             );
                         })

@@ -1,6 +1,6 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Button from '../../components/ui/Button';
 import { useState, useEffect } from 'react';
 import FormContent from './FormContent';
 import { addPost, getListPosts } from '../../actions/PostAction';
@@ -25,13 +25,11 @@ function PostForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('1. masuk handle submit');
         dispatch(addPost({ title: title, body: body, userId: id }));
     };
 
     useEffect(() => {
         if (addPostResult) {
-            console.log('5. Masuk component did update');
             dispatch(getListPosts(id));
             setBody('');
             setTitle('');
@@ -40,14 +38,13 @@ function PostForm() {
 
     return (
         <div>
-            <div className="mt-2">
-                <button
-                    className="btn btn-outline-dark m-2"
-                    onClick={handleForm}
-                >
-                    <i className="fa fa-caret-left fa-fw"></i> Add Post{' '}
-                </button>
-            </div>
+            <Button
+                variant="mt-2 btn-dark btn-outline-secondary m-2"
+                onClick={handleForm}
+                style={{ color: 'white' }}
+            >
+                Add Post
+            </Button>
             <div className="mt-2">
                 {isFormVisible && (
                     <div>
@@ -73,7 +70,11 @@ function PostForm() {
                                 }
                                 value={body}
                             />
-                            <Button variant="primary" type="submit">
+                            <Button
+                                variant="mt-2 btn-dark btn-outline-secondary m-2"
+                                type="submit"
+                                style={{ color: 'white' }}
+                            >
                                 Submit
                             </Button>
                         </Form>

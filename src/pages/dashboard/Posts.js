@@ -1,10 +1,10 @@
 import PageContainer from '../../components/layout/Container';
-import Title from '../../components/layout/Title';
+import Title from '../../components/ui/Title';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Button from '../../components/ui/Button';
 import ReturnButton from '../../components/ui/ReturnButton';
 import PostForm from '../../components/forms/PostForm';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,7 +37,6 @@ function Posts() {
 
     const handleSubmit = (event, postId) => {
         event.preventDefault();
-        console.log('1. masuk handle submit');
         dispatch(
             updatePost({ title: title, body: body, id: postId, userId: id })
         );
@@ -70,23 +69,31 @@ function Posts() {
                         return (
                             <div key={post.id}>
                                 <div
-                                    className="border border-success mb-3 p-3 w-100"
+                                    className="border border-dark mb-3 p-3 w-100"
                                     key={post.id}
                                 >
                                     <div className="h4">{post.title}</div>
                                     <p className="font-italic">{post.body}</p>
-                                    <Link
-                                        className="btn btn-outline-warning btn-sm m-3 p-2"
-                                        to={{
-                                            pathname: `/comments/${post.id}`,
-                                        }}
-                                    >
-                                        {' '}
-                                        See Comment(s)
-                                    </Link>
+                                    <Button variant="mt-2 btn-dark btn-outline-secondary m-2">
+                                        <Link
+                                            to={{
+                                                pathname: `/comments/${post.id}`,
+                                            }}
+                                            style={{
+                                                textDecoration: 'none',
+                                                color: 'white',
+                                            }}
+                                        >
+                                            See Comment(s)
+                                        </Link>
+                                    </Button>
                                     <Button
-                                        variant="primary"
+                                        variant="mt-2 btn-dark btn-outline-secondary m-2"
                                         onClick={() => handleShow(post)}
+                                        style={{
+                                            marginLeft: '5px',
+                                            color: 'white',
+                                        }}
                                     >
                                         Edit Post
                                     </Button>
@@ -141,23 +148,29 @@ function Posts() {
                                                         />
                                                     </Form.Group>
                                                     <Button
-                                                        variant="primary"
+                                                        variant="mt-2 btn-dark btn-outline-secondary m-2"
                                                         type="submit"
+                                                        style={{
+                                                            color: 'white',
+                                                        }}
                                                     >
                                                         Submit
                                                     </Button>
                                                 </Form>
                                             </div>
                                         )}
-                                    <button
-                                        className="btn btn-outline-danger btn-sm m-3 p-2"
+                                    <Button
+                                        variant="mt-2 btn-dark btn-outline-danger m-2"
                                         onClick={() =>
                                             dispatch(deletePost(post.id))
                                         }
+                                        style={{
+                                            marginLeft: '5px',
+                                            color: 'white',
+                                        }}
                                     >
-                                        <i className="fa fa-caret-left fa-fw"></i>{' '}
                                         Delete Post{' '}
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         );

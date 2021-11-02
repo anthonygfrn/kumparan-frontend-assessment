@@ -1,8 +1,8 @@
 import PageContainer from '../../components/layout/Container';
-import Title from '../../components/layout/Title';
-import UserList from '../../components/ui/User/UserList';
+import Title from '../../components/ui/Title';
+import UserList from '../../components/User/UserList';
 import React, { useEffect } from 'react';
-import UserLayout from '../../components/ui/User/UserLayout';
+import UserLayout from '../../components/User/UserLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListUsers } from '../../actions/UserAction';
 

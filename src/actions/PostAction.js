@@ -85,7 +85,6 @@ export const addPost = (data) => {
 };
 
 export const deletePost = (id) => {
-    console.log('2. Masuk Action');
     return (dispatch) => {
         dispatch({
             type: DELETE_POST,
@@ -102,7 +101,6 @@ export const deletePost = (id) => {
             timeout: 12000,
         })
             .then((response) => {
-                console.log('3. Berhasil dapet Data: ', response.data);
                 dispatch({
                     type: DELETE_POST,
                     payload: {
@@ -113,7 +111,6 @@ export const deletePost = (id) => {
                 });
             })
             .catch((error) => {
-                console.log('3. Gagal dapat Data: ', error.message);
                 dispatch({
                     type: DELETE_POST,
                     payload: {
