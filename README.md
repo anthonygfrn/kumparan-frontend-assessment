@@ -17,6 +17,16 @@ $ yarn start
 
 ```
 
+# Run json-server
+
+Steps:
+
+```
+$ cd json-server
+$ json-server --watch db.json
+
+```
+
 # About the app
 
 A single page social media dashboard application using javascript and react that consumes social media API.
@@ -40,5 +50,5 @@ A single page social media dashboard application using javascript and react that
 
 # Comments
 
-- Even though successfulyy create/add/delete the post/comment, nothing will actually happened as the API doesn't actually change the data.
-- I wanted to do testing, but there are no time left 
+-   Even though successfulyy create/add/delete the post/comment, nothing will actually happened as the API doesn't actually change the data.
+-   I wanted to do testing, but there are no time left

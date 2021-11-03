@@ -19,7 +19,7 @@ export const getListComments = (id) => {
 
         axios({
             method: 'GET',
-            url: 'http://localhost:3000/comments?postId=' + id,
+            url: 'http://localhost:3000/comments/?postsId=' + id,
             timeout: 12000,
         })
             .then((response) => {

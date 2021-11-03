@@ -1,29 +1,29 @@
 import React from 'react';
-import PhotoButton from '../Albums/PhotoButton';
+import PhotoId from './PhotoId';
 import PhotoBorder from './PhotoBorder';
+import Container from '../layout/Container';
+import Column from '../layout/Column';
+import Image from '../ui/Image';
+import Text from '../ui/Text';
 
 function PhotosList(props) {
     return (
-        <div className="row mx-0 mt-3 justify-content-center">
+        <Container variant="row mx-0 mt-3 justify-content-center">
             {props.photos.map((photo) => (
-                <div
-                    className="col-lg-3 col-md-4 col-6 mb-1 p-2 text-center"
+                <Column
+                    variant="col-lg-3 col-md-4 col-6 mb-1 p-2 text-center"
                     key={photo.id}
                 >
                     <PhotoBorder>
-                        <img
-                            className="img-fluid"
-                            src={photo.url}
-                            alt={photo.title}
-                        />
-                        <div className="h6 font-italic font-weight-normal m-2">
+                        <Image src={photo.url} alt={photo.title} />
+                        <Text variant="h6 font-italic font-weight-normal m-2">
                             {photo.title}
-                        </div>
-                        <PhotoButton>photo id : {photo.id}</PhotoButton>
+                        </Text>
+                        <PhotoId>photo id : {photo.id}</PhotoId>
                     </PhotoBorder>
-                </div>
+                </Column>
             ))}
-        </div>
+        </Container>
     );
 }
 

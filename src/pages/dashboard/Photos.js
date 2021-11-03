@@ -18,7 +18,7 @@ function Photos() {
 
     return (
         <PageContainer>
-            <Title title={'List of Photos'} />
+            <Title title={'List of Photos'} variant="h2" />
             {getListPhotosResult ? (
                 <PhotosList photos={getListPhotosResult} />
             ) : getListPhotosLoading ? (

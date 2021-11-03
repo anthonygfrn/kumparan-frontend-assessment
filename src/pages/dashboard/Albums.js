@@ -9,9 +9,9 @@ import { getListAlbums } from '../../actions/AlbumAction';
 
 function Albums() {
     const { id } = useParams();
+    const dispatch = useDispatch();
     const { getListAlbumsResult, getListAlbumsLoading, getListAlbumsError } =
         useSelector((state) => state.albumReducer);
-    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getListAlbums(id));
@@ -20,7 +20,7 @@ function Albums() {
     return (
         <PageContainer>
             <ReturnButton link={'/'} />
-            <Title title={'List of Albums'} />
+            <Title title={'List of Albums'} variant="h2" />
             {getListAlbumsResult ? (
                 <AlbumsList albums={getListAlbumsResult} />
             ) : getListAlbumsLoading ? (

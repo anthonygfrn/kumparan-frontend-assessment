@@ -2,20 +2,21 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 
 const Buttons = (props) => {
-    const buttonContent = React.useMemo(
-        () => (props.text ? props.text : props.children ? props.children : ''),
-        props
-    );
+    // const buttonContent = React.useMemo(
+    //     () => (props.text ? props.text : props.children ? props.children : ''),
+    //     props
+    // );
 
     return (
         <Button
             className={props.variant}
             onClick={props.onClick}
             style={props.style}
+            type={props.type}
         >
-            <div>{buttonContent}</div>
+            <div>{props.children}</div>
         </Button>
     );
 };
 
-export default React.memo(Buttons);
+export default Buttons;

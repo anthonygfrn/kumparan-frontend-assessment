@@ -18,7 +18,7 @@ function App() {
     return (
         <PageContainer>
             <UserLayout>
-                <Title title={'List of Users'} />
+                <Title title={'List of Users'} variant="h2" />
                 {getListUsersResult ? (
                     <UserList users={getListUsersResult} />
                 ) : getListUsersLoading ? (

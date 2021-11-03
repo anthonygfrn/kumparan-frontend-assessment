@@ -2,17 +2,21 @@ import React from 'react';
 import UserLayout from './UserLayout';
 import { Link } from 'react-router-dom';
 import Button from '../../components/ui/Button';
+import Column from '../layout/Column';
+import ContentCard from '../ui/ContentCard';
+import Container from '../layout/Container';
+import Text from '../ui/Text';
 
 function UserList(props) {
     return (
         <UserLayout>
             {props.users.map((user) => (
-                <div
-                    className="col-lg-4 col-md-6 mb-1 p-2 text-center"
+                <Column
+                    variant="col-lg-4 col-md-6 mb-1 p-2 text-center"
                     key={user.id}
                 >
-                    <div className="border border-dark p-3 h-100">
-                        <h5>{user.name}</h5>
+                    <ContentCard variant="border border-dark p-3 h-100">
+                        <Text variant="h5">{user.name}</Text>
                         <p>Username: @{user.username}</p>
                         <div>
                             <small className="text-muted">
@@ -24,8 +28,8 @@ function UserList(props) {
                                 {user.address.geo.lng}
                             </small>
                         </div>
-                        <div className="row mx-0 mt-4">
-                            <div className="col-6">
+                        <Container variant="row mx-0 mt-4">
+                            <Column variant="col-6">
                                 <Button variant="btn btn-success btn-outline-dark  btn-sm">
                                     <Link
                                         to={{
@@ -36,11 +40,11 @@ function UserList(props) {
                                             color: 'white',
                                         }}
                                     >
-                                        See Comment(s)
+                                        See Post(s)
                                     </Link>
                                 </Button>
-                            </div>
-                            <div className="col-6">
+                            </Column>
+                            <Column variant="col-6">
                                 <Button variant="btn btn-success btn-outline-dark  btn-sm">
                                     <Link
                                         to={{
@@ -55,10 +59,10 @@ function UserList(props) {
                                         &nbsp;Albums
                                     </Link>
                                 </Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </Column>
+                        </Container>
+                    </ContentCard>
+                </Column>
             ))}
         </UserLayout>
     );
