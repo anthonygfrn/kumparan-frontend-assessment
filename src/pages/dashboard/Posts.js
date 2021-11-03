@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import Form from 'react-bootstrap/Form';
 import Button from '../../components/ui/Button';
+import Container from '../../components/layout/Container';
 import ReturnButton from '../../components/ui/ReturnButton';
 import PostForm from '../../components/forms/PostForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListPosts, deletePost, updatePost } from '../../actions/PostAction';
+import Column from '../../components/layout/Column';
+import Text from '../../components/ui/Text';
 
 function Posts() {
     const { id } = useParams();
@@ -62,17 +65,17 @@ function Posts() {
         <PageContainer>
             <ReturnButton link={'/'} />
             <PostForm />
-            <Title title={'List of Posts'} />
-            <div className="row mx-0 mt-3">
+            <Title title={'List of Posts'} variant="h2" />
+            <Container variant="row mx-0 mt-3 ">
                 {getListPostsResult ? (
                     getListPostsResult.map((post) => {
                         return (
-                            <div key={post.id}>
+                            <Column key={post.id}>
                                 <div
                                     className="border border-dark mb-3 p-3 w-100"
                                     key={post.id}
                                 >
-                                    <div className="h4">{post.title}</div>
+                                    <Text variant="h4">{post.title}</Text>
                                     <p className="font-italic">{post.body}</p>
                                     <Button variant="mt-2 btn-dark btn-outline-secondary m-2">
                                         <Link
@@ -101,7 +104,7 @@ function Posts() {
                                         post.id === selectedPost && (
                                             <div>
                                                 <Form
-                                                    className="border border-primary p-3 h-100"
+                                                    className="border border-dark p-3 h-100"
                                                     onSubmit={(event) =>
                                                         handleSubmit(
                                                             event,
@@ -172,7 +175,7 @@ function Posts() {
                                         Delete Post{' '}
                                     </Button>
                                 </div>
-                            </div>
+                            </Column>
                         );
                     })
                 ) : getListPostsLoading ? (
@@ -182,7 +185,7 @@ function Posts() {
                         {getListPostsError ? getListPostsError : 'Data Kosong'}
                     </p>
                 )}
-            </div>
+            </Container>
         </PageContainer>
     );
 }

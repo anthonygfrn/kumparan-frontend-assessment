@@ -6,6 +6,8 @@ import FormContent from './FormContent';
 import { addPost, getListPosts } from '../../actions/PostAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import Column from '../layout/Column';
+import Container from '../layout/Container';
 
 function PostForm() {
     const [isFormVisible, setFormVisible] = useState(false);
@@ -15,13 +17,13 @@ function PostForm() {
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const handleForm = () => {
+    const handleForm = React.useCallback(() => {
         if (isFormVisible) {
             setFormVisible(false);
         } else {
             setFormVisible(true);
         }
-    };
+    }, [setFormVisible]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -37,17 +39,16 @@ function PostForm() {
     }, [addPostResult, dispatch]);
 
     return (
-        <div>
+        <Container>
             <Button
-                variant="mt-2 btn-dark btn-outline-secondary m-2"
+                variant="mt-2 btn-light btn-outline-dark m-2"
                 onClick={handleForm}
-                style={{ color: 'white' }}
             >
                 Add Post
             </Button>
-            <div className="mt-2">
+            <Column className="mt-2 mb-3">
                 {isFormVisible && (
-                    <div>
+                    <Column>
                         <Form
                             className="border border-dark p-3 h-100"
                             onSubmit={(event) => handleSubmit(event)}
@@ -78,10 +79,10 @@ function PostForm() {
                                 Submit
                             </Button>
                         </Form>
-                    </div>
+                    </Column>
                 )}
-            </div>
-        </div>
+            </Column>
+        </Container>
     );
 }
 

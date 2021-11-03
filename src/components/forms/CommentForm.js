@@ -6,6 +6,8 @@ import FormContent from './FormContent';
 import { addComment, getListComments } from '../../actions/CommentAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import Column from '../layout/Column';
+import Container from '../layout/Container';
 
 function CommentForm() {
     const [isFormVisible, setFormVisible] = useState(false);
@@ -16,13 +18,13 @@ function CommentForm() {
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const handleForm = () => {
+    const handleForm = React.useCallback(() => {
         if (isFormVisible) {
             setFormVisible(false);
         } else {
             setFormVisible(true);
         }
-    };
+    }, [setFormVisible]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -41,20 +43,20 @@ function CommentForm() {
     }, [addCommentResult, dispatch]);
 
     return (
-        <div>
-            <div className="mt-2">
-                <button
-                    className="btn btn-outline-dark m-2"
+        <Container>
+            <Column variant="mt-2">
+                <Button
+                    variant="mt-2 btn-light btn-outline-dark m-2"
                     onClick={handleForm}
                 >
-                    <i className="fa fa-caret-left fa-fw"></i> Add Post{' '}
-                </button>
-            </div>
-            <div className="mt-2">
+                    Add Post
+                </Button>
+            </Column>
+            <Column variant="mu-2 mb-3">
                 {isFormVisible && (
-                    <div>
+                    <Column>
                         <Form
-                            className="border border-primary p-3 h-100"
+                            className="border border-dark p-3 h-100"
                             onSubmit={(event) => handleSubmit(event)}
                         >
                             <FormContent
@@ -81,14 +83,18 @@ function CommentForm() {
                                 }
                                 value={body}
                             />
-                            <Button variant="primary" type="submit">
+                            <Button
+                                variant="mt-2 btn-dark btn-outline-secondary m-2"
+                                type="submit"
+                                style={{ color: 'white' }}
+                            >
                                 Submit
                             </Button>
                         </Form>
-                    </div>
+                    </Column>
                 )}
-            </div>
-        </div>
+            </Column>
+        </Container>
     );
 }
 
