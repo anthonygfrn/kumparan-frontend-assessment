@@ -1,28 +1,26 @@
 import PageContainer from '../../components/layout/Container';
 import Title from '../../components/layout/Title';
 import AlbumsList from '../../components/ui/Albums/AlbumsList';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
-import ReturnButton from '../../components/ui/ReturnButton';
-import { getAlbum } from '../../services/HttpApi';
+import ReturnButton from '../../components/layout/ReturnButton';
+import { useAppState } from '../../context/appState';
+import { getAlbumsList } from '../../actions/albumsAction';
 
 function Albums() {
-    const [albums, setAlbums] = useState([]);
     const { id } = useParams();
+    const [state, dispatch] = useAppState();
+    const { getAlbumsResult } = state;
 
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await getAlbum(id);
-            setAlbums(res.data);
-        };
-        fetchData();
-    }, [id]);
+        getAlbumsList(dispatch, id);
+    }, [dispatch, id]);
 
     return (
         <PageContainer>
             <ReturnButton />
             <Title title={'List of Albums'} />
-            <AlbumsList albums={albums} />
+            {getAlbumsResult ? <AlbumsList albums={getAlbumsResult} /> : ''}
         </PageContainer>
     );
 }
