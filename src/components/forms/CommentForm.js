@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Column from '../layout/Column';
 import Container from '../layout/Container';
+import { Modal } from 'react-bootstrap';
 
 function CommentForm() {
     const [isFormVisible, setFormVisible] = useState(false);
@@ -17,6 +18,10 @@ function CommentForm() {
     const { addCommentResult } = useSelector((state) => state.commentReducer);
     const dispatch = useDispatch();
     const { id } = useParams();
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
 
     const handleForm = React.useCallback(() => {
         if (isFormVisible) {
@@ -24,7 +29,7 @@ function CommentForm() {
         } else {
             setFormVisible(true);
         }
-    }, [setFormVisible]);
+    }, [isFormVisible]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -87,9 +92,18 @@ function CommentForm() {
                                 variant="mt-2 btn-dark btn-outline-secondary m-2"
                                 type="submit"
                                 style={{ color: 'white' }}
+                                onClick={handleOpen}
                             >
                                 Submit
                             </Button>
+                            <Modal show={show} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Comment is Added!</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    Successfully Added Comment
+                                </Modal.Body>
+                            </Modal>
                         </Form>
                     </Column>
                 )}

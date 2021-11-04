@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Column from '../layout/Column';
 import Container from '../layout/Container';
+import { Modal } from 'react-bootstrap';
 
 function PostForm() {
     const [isFormVisible, setFormVisible] = useState(false);
@@ -16,6 +17,10 @@ function PostForm() {
     const { addPostResult } = useSelector((state) => state.postReducer);
     const dispatch = useDispatch();
     const { id } = useParams();
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
 
     const handleForm = React.useCallback(() => {
         if (isFormVisible) {
@@ -23,7 +28,7 @@ function PostForm() {
         } else {
             setFormVisible(true);
         }
-    }, [setFormVisible]);
+    }, [isFormVisible]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -75,9 +80,16 @@ function PostForm() {
                                 variant="mt-2 btn-dark btn-outline-secondary m-2"
                                 type="submit"
                                 style={{ color: 'white' }}
+                                onClick={handleOpen}
                             >
                                 Submit
                             </Button>
+                            <Modal show={show} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Post is Added!</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Successfully Added Post</Modal.Body>
+                            </Modal>
                         </Form>
                     </Column>
                 )}
