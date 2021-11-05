@@ -63,7 +63,7 @@ function Posts() {
 
     return (
         <PageContainer>
-            <ReturnButton link={'/'} />
+            <ReturnButton link={'/users'} />
             <PostForm />
             <Title title={'List of Posts'} variant="h2" />
             <Container variant="row mx-0 mt-3 ">

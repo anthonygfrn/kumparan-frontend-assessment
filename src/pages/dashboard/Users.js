@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import UserLayout from '../../components/User/UserLayout';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListUsers } from '../../actions/UserAction';
+import { Link } from 'react-router-dom';
 
 function App() {
     const { getListUsersResult, getListUsersLoading, getListUsersError } =
@@ -18,7 +19,10 @@ function App() {
     return (
         <PageContainer>
             <UserLayout>
-                <Title title={'List of Users'} variant="h2" />
+                <Title title={'List of Users'} variant="h2" />{' '}
+                <Link to="/" className="btn btn-primary w-100 mt-3">
+                    Return to dashboard
+                </Link>
                 {getListUsersResult ? (
                     <UserList users={getListUsersResult} />
                 ) : getListUsersLoading ? (
