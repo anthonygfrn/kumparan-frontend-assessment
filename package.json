@@ -8,11 +8,13 @@
         "@testing-library/user-event": "^12.1.10",
         "axios": "^0.22.0",
         "bootstrap": "^5.1.1",
+        "concurrently": "^6.3.0",
         "dotenv": "^10.0.0",
         "eslint": "^7.11.0",
         "eslint-plugin-prettier": "^4.0.0",
         "eslint-plugin-react": "^7.26.1",
         "firebase": "^9.3.0",
+        "json-server": "^0.17.0",
         "react": "^17.0.2",
         "react-bootstrap": "^1.6.4",
         "react-dom": "^17.0.2",
@@ -26,7 +28,7 @@
         "yarn": "^1.22.17"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "concurrently \"json-server --watch db.json\" \"set PORT=3001 && react-scripts start\"",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
