@@ -19,7 +19,7 @@ function Albums() {
 
     return (
         <PageContainer>
-            <ReturnButton link={'/users'} />
+            <ReturnButton link={'/users'} text={'Return'} />
             <Title title={'List of Albums'} variant="h2" />
             {getListAlbumsResult ? (
                 <AlbumsList albums={getListAlbumsResult} />

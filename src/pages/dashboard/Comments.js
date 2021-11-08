@@ -75,7 +75,7 @@ function Comments() {
 
     return (
         <PageContainer>
-            <ReturnButton link={'/users'} />
+            <ReturnButton link={'/users'} text={'Return'} />
             <Container variant="row mx-0 mt-3">
                 <Title title={'Comments: '} variant="h2" />
                 <CommentForm />

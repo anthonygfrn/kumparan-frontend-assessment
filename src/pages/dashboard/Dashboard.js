@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Alert, Button, Card, Container } from 'react-bootstrap';
+import { Alert, Card, Container } from 'react-bootstrap';
+import Button from '../../components/ui/Button';
 import { useAuth } from '../../context/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
 import PageContainer from '../../components/layout/Container';
+import ReturnButton from '../../components/ui/ReturnButton';
+import Text from '../../components/ui/Text';
+import Col from '../../components/layout/Column';
 
 function Dashboard() {
     const [error, setError] = useState('');
@@ -22,17 +26,15 @@ function Dashboard() {
 
     return (
         <PageContainer>
-            <Link to="/users" className="btn btn-primary w-100 mt-3">
-                Continue to User List
-            </Link>
+            <ReturnButton link={'/users'} text={'Continue to User List'} />
             <Container
-                className="d-flex align-items-center justify-content-center"
+                className="d-flex justify-content-center"
                 style={{ minHeight: '100vh' }}
             >
-                <div className="w-100" style={{ maxWidth: '400px' }}>
+                <Col variant="w-100" style={{ maxWidth: '400px' }}>
                     <Card>
                         <Card.Body>
-                            <h2 className="text-center mb-4">Profile</h2>
+                            <Text variant="h2 text-center mb-4">Profile</Text>
                             {error && <Alert variant="danger">{error}</Alert>}
                             <strong>Email:</strong> {currentUser.email}
                             <Link
@@ -43,12 +45,12 @@ function Dashboard() {
                             </Link>
                         </Card.Body>
                     </Card>
-                    <div className="w-100 text-center mt-2">
+                    <Col variant="w-100 text-center mt-2">
                         <Button variant="link" onClick={handleLogout}>
                             Log Out
                         </Button>
-                    </div>
-                </div>
+                    </Col>
+                </Col>
             </Container>
         </PageContainer>
     );

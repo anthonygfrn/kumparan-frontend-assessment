@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 function Text(props) {
-    return <span className={props.variant}>{props.children}</span>;
+    return <div className={props.variant}>{props.children}</div>;
 }
 
 export default React.memo(Text);

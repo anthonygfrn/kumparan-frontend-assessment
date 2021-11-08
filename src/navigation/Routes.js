@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Dashboard from '../pages/dashboard/Dashboard';
 import { Posts, Albums, Photos, Comments, UserList } from '../pages/dashboard';
-import Login from '../components/Login';
+import Login from '../authentication/Login';
 import { AuthProvider } from '../context/AuthContext';
-import SignUp from '../components/SignUp';
+import SignUp from '../authentication/SignUp';
 import PrivateRoute from './PrivateRoute';
-import ForgotPassword from '../components/ForgotPassword';
-import UpdateProfile from '../components/UpdateProfile';
+import ForgotPassword from '../authentication/ForgotPassword';
+import UpdateProfile from '../authentication/UpdateProfile';
 
 const Routes = () => (
     <AuthProvider>
